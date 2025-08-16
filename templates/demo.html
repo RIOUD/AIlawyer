@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Demo - Legal Assistant AI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4 fw-bold">
+                <i class="fas fa-play-circle text-primary me-3"></i>
+                Platform Demo
+            </h1>
+            <p class="lead">Experience the power of secure, offline legal AI assistance</p>
+        </div>
+    </div>
+
+    <!-- Demo Features -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="demo-card text-center">
+                <div class="demo-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h4>Legal Query Demo</h4>
+                <p>Ask questions about Belgian legal documents and get instant, traceable answers.</p>
+                <a href="/query" class="btn btn-primary">Try Query</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="demo-card text-center">
+                <div class="demo-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h4>Document Generation</h4>
+                <p>Generate legal documents from templates with AI-powered customization.</p>
+                <a href="/templates" class="btn btn-primary">View Templates</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="demo-card text-center">
+                <div class="demo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Security Features</h4>
+                <p>Explore quantum-resistant encryption and security management capabilities.</p>
+                <a href="/security" class="btn btn-primary">Security Demo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Demo -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="demo-interactive">
+                <h3 class="text-center mb-4">Interactive Demo: Legal Query</h3>
+                <div class="demo-query-box">
+                    <div class="form-group">
+                        <label for="demoQuery" class="form-label">Ask a legal question:</label>
+                        <input type="text" class="form-control form-control-lg" id="demoQuery" 
+                               placeholder="e.g., What are the requirements for an employment contract in Belgium?">
+                    </div>
+                    <button class="btn btn-primary btn-lg mt-3" onclick="runDemo()">
+                        <i class="fas fa-search me-2"></i>Get Answer
+                    </button>
+                </div>
+                
+                <div id="demoResult" class="demo-result mt-4" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-lightbulb me-2"></i>AI Response</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="demoAnswer"></div>
+                            <hr>
+                            <h6><i class="fas fa-file-alt me-2"></i>Sources:</h6>
+                            <div id="demoSources"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Platform Stats -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="text-center mb-4">Platform Performance</h3>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">1-2s</div>
+                <div class="stat-label">Document Processing</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">&lt;1s</div>
+                <div class="stat-label">Query Response</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Documents Supported</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card text-center">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.demo-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.demo-card:hover {
+    transform: translateY(-5px);
+}
+
+.demo-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.demo-interactive {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.demo-query-box {
+    text-align: center;
+}
+
+.demo-result {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+function runDemo() {
+    const query = document.getElementById('demoQuery').value;
+    if (!query.trim()) {
+        alert('Please enter a question');
+        return;
+    }
+    
+    // Show loading state
+    document.getElementById('demoResult').style.display = 'block';
+    document.getElementById('demoAnswer').innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Processing...</div>';
+    document.getElementById('demoSources').innerHTML = '';
+    
+    // Simulate AI processing
+    setTimeout(() => {
+        const demoResponses = [
+            {
+                answer: `Based on Belgian employment law, an employment contract must include: the identity of both parties, the workplace, the job description, the start date, the salary and payment method, working hours, and notice periods. The contract must be in writing and comply with the Belgian Labor Code.`,
+                sources: [
+                    { document: "arbeidsovereenkomst_model_2024.pdf", relevance: 0.95 },
+                    { document: "vlaams_decreet_arbeid_2024.pdf", relevance: 0.87 }
+                ]
+            },
+            {
+                answer: `Under Belgian privacy law (GDPR implementation), personal data processing requires a legal basis such as consent, contract performance, legal obligation, vital interests, public task, or legitimate interests. Data subjects have rights to access, rectification, erasure, and portability.`,
+                sources: [
+                    { document: "eu_richtlijn_privacy_2021.pdf", relevance: 0.92 },
+                    { document: "belgian_privacy_law_2018.pdf", relevance: 0.89 }
+                ]
+            },
+            {
+                answer: `Belgian contract law requires offer, acceptance, capacity, and legal purpose for validity. Contracts can be oral or written, but certain types (real estate, employment) must be in writing. The principle of good faith applies to all contractual relationships.`,
+                sources: [
+                    { document: "belgian_civil_code_contracts.pdf", relevance: 0.88 },
+                    { document: "contract_law_interpretation_2023.pdf", relevance: 0.85 }
+                ]
+            }
+        ];
+        
+        const randomResponse = demoResponses[Math.floor(Math.random() * demoResponses.length)];
+        
+        document.getElementById('demoAnswer').innerHTML = `<p>${randomResponse.answer}</p>`;
+        
+        let sourcesHtml = '<ul class="list-unstyled">';
+        randomResponse.sources.forEach(source => {
+            sourcesHtml += `<li><i class="fas fa-file-pdf me-2"></i>${source.document} (Relevance: ${Math.round(source.relevance * 100)}%)</li>`;
+        });
+        sourcesHtml += '</ul>';
+        document.getElementById('demoSources').innerHTML = sourcesHtml;
+    }, 2000);
+}
+</script>
+{% endblock %} 

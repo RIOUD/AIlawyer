@@ -1,0 +1,243 @@
+{
+  "test_suites": [
+    {
+      "user_type": "solo_lawyer",
+      "total_tests": 3,
+      "passed_tests": 3,
+      "failed_tests": 0,
+      "pass_rate": 100.0,
+      "average_execution_time": 1.5123381614685059,
+      "scenarios_tested": [
+        "BQ",
+        "DG",
+        "SF"
+      ],
+      "feedback_analytics": {
+        "total_feedback": 5,
+        "sentiment_distribution": {
+          "4": 4,
+          "3": 1
+        },
+        "category_distribution": {
+          "usability": 4,
+          "performance": 1
+        },
+        "user_type_distribution": {
+          "solo_lawyer": 5
+        },
+        "average_sentiment": 3.8
+      },
+      "detailed_results": [
+        {
+          "test_id": "BQ001",
+          "user_id": "2ff017f1-a8b6-4896-a3dd-69f2e7d19cf6",
+          "session_id": "18aa5c85-6186-45d1-95c1-417ff73f086a",
+          "passed": true,
+          "execution_time": 1.0099351406097412,
+          "errors": [],
+          "feedback": "ff6dc756-90fc-4494-bfd2-cc36d6312790",
+          "performance_data": {
+            "response_time": 1.0099351406097412,
+            "memory_usage": 181.3349318599603,
+            "cpu_usage": 13.492118292639514
+          },
+          "timestamp": "2025-08-16 03:34:53.692828"
+        },
+        {
+          "test_id": "DG001",
+          "user_id": "2ff017f1-a8b6-4896-a3dd-69f2e7d19cf6",
+          "session_id": "b8dd9508-ffb3-497d-b30a-1e287b6f2198",
+          "passed": true,
+          "execution_time": 2.014605760574341,
+          "errors": [],
+          "feedback": "c874983e-1fc6-4c63-bcf7-025b027dc4c3",
+          "performance_data": {
+            "response_time": 2.014605760574341,
+            "memory_usage": 464.5428670652347,
+            "cpu_usage": 10.894059217649703
+          },
+          "timestamp": "2025-08-16 03:34:55.724478"
+        },
+        {
+          "test_id": "SF001",
+          "user_id": "2ff017f1-a8b6-4896-a3dd-69f2e7d19cf6",
+          "session_id": "9b13418f-7287-467d-8a40-526e1c6ef262",
+          "passed": true,
+          "execution_time": 1.5124735832214355,
+          "errors": [],
+          "feedback": "07f929d5-1057-40bd-acf3-11a3607210a8",
+          "performance_data": {
+            "response_time": 1.5124735832214355,
+            "memory_usage": 359.705573780782,
+            "cpu_usage": 13.408518899542234
+          },
+          "timestamp": "2025-08-16 03:34:57.255215"
+        }
+      ],
+      "timestamp": "2025-08-16T03:34:57.260752"
+    },
+    {
+      "user_type": "small_firm",
+      "total_tests": 2,
+      "passed_tests": 2,
+      "failed_tests": 0,
+      "pass_rate": 100.0,
+      "average_execution_time": 1.764293909072876,
+      "scenarios_tested": [
+        "BQ",
+        "SF"
+      ],
+      "feedback_analytics": {
+        "total_feedback": 4,
+        "sentiment_distribution": {
+          "4": 3,
+          "3": 1
+        },
+        "category_distribution": {
+          "usability": 3,
+          "performance": 1
+        },
+        "user_type_distribution": {
+          "small_firm": 4
+        },
+        "average_sentiment": 3.75
+      },
+      "detailed_results": [
+        {
+          "test_id": "BQ002",
+          "user_id": "437af75c-d90d-4d20-9d0c-15ad6917e474",
+          "session_id": "932a5ada-fc79-45ad-84ba-9688497e7ae8",
+          "passed": true,
+          "execution_time": 1.513152837753296,
+          "errors": [],
+          "feedback": "779d9407-fe02-49f8-9742-70838b655415",
+          "performance_data": {
+            "response_time": 1.513152837753296,
+            "memory_usage": 262.08601355987355,
+            "cpu_usage": 26.883871372009082
+          },
+          "timestamp": "2025-08-16 03:34:58.792397"
+        },
+        {
+          "test_id": "SF002",
+          "user_id": "437af75c-d90d-4d20-9d0c-15ad6917e474",
+          "session_id": "711e18e6-79d8-4b4b-bc5b-f734720ef67b",
+          "passed": true,
+          "execution_time": 2.015434980392456,
+          "errors": [],
+          "feedback": "a0125910-ef5f-4415-a57a-0b5db7c5d397",
+          "performance_data": {
+            "response_time": 2.015434980392456,
+            "memory_usage": 357.98965104568833,
+            "cpu_usage": 18.318571200336653
+          },
+          "timestamp": "2025-08-16 03:35:00.825804"
+        }
+      ],
+      "timestamp": "2025-08-16T03:35:00.830932"
+    },
+    {
+      "user_type": "large_firm",
+      "total_tests": 3,
+      "passed_tests": 1,
+      "failed_tests": 2,
+      "pass_rate": 33.33333333333333,
+      "average_execution_time": 2.249549150466919,
+      "scenarios_tested": [
+        "PT",
+        "DG",
+        "AF"
+      ],
+      "feedback_analytics": {
+        "total_feedback": 1,
+        "sentiment_distribution": {
+          "4": 1
+        },
+        "category_distribution": {
+          "usability": 1
+        },
+        "user_type_distribution": {
+          "large_firm": 1
+        },
+        "average_sentiment": 4.0
+      },
+      "detailed_results": [
+        {
+          "test_id": "AF001",
+          "user_id": "df07f511-3229-47ef-ab1a-2b2eeaba3c27",
+          "session_id": "e6cb61e4-cd67-4284-9d1c-ba163f3f1c4d",
+          "passed": false,
+          "execution_time": 1.2110350131988525,
+          "errors": [
+            "Simulated test error"
+          ],
+          "feedback": null,
+          "performance_data": {
+            "response_time": 1.2110350131988525,
+            "memory_usage": 199.42267714324356,
+            "cpu_usage": 27.00815198531506
+          },
+          "timestamp": "2025-08-16 03:35:02.047452"
+        },
+        {
+          "test_id": "DG002",
+          "user_id": "df07f511-3229-47ef-ab1a-2b2eeaba3c27",
+          "session_id": "fb66deec-955d-4e51-b8c7-078b3f4cd896",
+          "passed": false,
+          "execution_time": 2.517442464828491,
+          "errors": [
+            "Simulated test error"
+          ],
+          "feedback": null,
+          "performance_data": {
+            "response_time": 2.517442464828491,
+            "memory_usage": 285.91563769478347,
+            "cpu_usage": 26.573649049107193
+          },
+          "timestamp": "2025-08-16 03:35:04.577583"
+        },
+        {
+          "test_id": "PT001",
+          "user_id": "df07f511-3229-47ef-ab1a-2b2eeaba3c27",
+          "session_id": "2a5f5a4f-6a76-4a97-992a-40b946cbf6a3",
+          "passed": true,
+          "execution_time": 3.020169973373413,
+          "errors": [],
+          "feedback": "87deaf45-336d-447e-8b9b-d565aee0c04c",
+          "performance_data": {
+            "response_time": 3.020169973373413,
+            "memory_usage": 155.6275681793892,
+            "cpu_usage": 23.547631222229647
+          },
+          "timestamp": "2025-08-16 03:35:07.622583"
+        }
+      ],
+      "timestamp": "2025-08-16T03:35:07.627631"
+    }
+  ],
+  "overall_statistics": {
+    "total_tests": 8,
+    "passed_tests": 6,
+    "failed_tests": 2,
+    "overall_pass_rate": 75.0,
+    "user_type_statistics": {
+      "2ff017f1-a8b6-4896-a3dd-69f2e7d19cf6": {
+        "total": 3,
+        "passed": 3,
+        "pass_rate": 100.0
+      },
+      "437af75c-d90d-4d20-9d0c-15ad6917e474": {
+        "total": 2,
+        "passed": 2,
+        "pass_rate": 100.0
+      },
+      "df07f511-3229-47ef-ab1a-2b2eeaba3c27": {
+        "total": 3,
+        "passed": 1,
+        "pass_rate": 33.33333333333333
+      }
+    },
+    "average_execution_time": 1.8517812192440033
+  },
+  "timestamp": "2025-08-16T03:35:07.627838"
+}

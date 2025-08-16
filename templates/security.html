@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Security Management - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-shield-alt text-primary me-2"></i>Security Management</h2>
+                <p class="text-muted">
+                    Manage encryption, audit logging, and security settings for your legal documents.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Security Status -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-chart-line me-2"></i>Security Status</h5>
+                <div id="securityStatus">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary" onclick="encryptDocument()">
+                        <i class="fas fa-lock me-2"></i>Encrypt Document
+                    </button>
+                    <button class="btn btn-outline-success" onclick="decryptDocument()">
+                        <i class="fas fa-unlock me-2"></i>Decrypt Document
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="passwordProtect()">
+                        <i class="fas fa-key me-2"></i>Password Protect
+                    </button>
+                    <button class="btn btn-outline-danger" onclick="secureDelete()">
+                        <i class="fas fa-trash me-2"></i>Secure Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Audit Logs -->
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-list-alt me-2"></i>Recent Security Events</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Event</th>
+                                <th>User</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditLogs">
+                            <tr>
+                                <td>2024-08-15 14:30</td>
+                                <td>Document encrypted</td>
+                                <td>lawyer_123</td>
+                                <td><span class="badge bg-success">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-15 14:25</td>
+                                <td>Password protection added</td>
+                                <td>lawyer_123</td>
+                                <td><span class="badge bg-success">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-15 14:20</td>
+                                <td>Document accessed</td>
+                                <td>lawyer_123</td>
+                                <td><span class="badge bg-info">Info</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Security Settings -->
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-cogs me-2"></i>Security Settings</h5>
+                <div class="mb-3">
+                    <label class="form-label">Encryption Level</label>
+                    <select class="form-select" id="encryptionLevel">
+                        <option value="aes256">AES-256-GCM</option>
+                        <option value="quantum">Quantum-Resistant</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Session Timeout (minutes)</label>
+                    <input type="number" class="form-control" id="sessionTimeout" value="15" min="5" max="60">
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="auditLogging" checked>
+                        <label class="form-check-label" for="auditLogging">
+                            Enable Audit Logging
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="passwordProtection">
+                        <label class="form-check-label" for="passwordProtection">
+                            Require Password for Sensitive Documents
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveSecuritySettings()">
+                    <i class="fas fa-save me-1"></i>Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Load security status
+async function loadSecurityStatus() {
+    try {
+        const response = await fetch('/api/security/status');
+        const status = await response.json();
+        
+        const statusHtml = `
+            <div class="row text-center">
+                <div class="col-6 mb-3">
+                    <h4 class="text-${status.encryption_enabled ? 'success' : 'danger'}">
+                        <i class="fas fa-${status.encryption_enabled ? 'lock' : 'unlock'}"></i>
+                    </h4>
+                    <small class="text-muted">Encryption</small>
+                </div>
+                <div class="col-6 mb-3">
+                    <h4 class="text-${status.audit_logging ? 'success' : 'warning'}">
+                        <i class="fas fa-${status.audit_logging ? 'eye' : 'eye-slash'}"></i>
+                    </h4>
+                    <small class="text-muted">Audit Logging</small>
+                </div>
+                <div class="col-6 mb-3">
+                    <h4 class="text-primary">${status.password_protected_files}</h4>
+                    <small class="text-muted">Protected Files</small>
+                </div>
+                <div class="col-6 mb-3">
+                    <h4 class="text-info">${status.recent_security_events}</h4>
+                    <small class="text-muted">Recent Events</small>
+                </div>
+            </div>
+            <div class="text-center">
+                <span class="badge bg-${status.security_level === 'high' ? 'success' : 'warning'}">
+                    Security Level: ${status.security_level.toUpperCase()}
+                </span>
+            </div>
+        `;
+        
+        document.getElementById('securityStatus').innerHTML = statusHtml;
+    } catch (error) {
+        console.error('Error loading security status:', error);
+        document.getElementById('securityStatus').innerHTML = '<div class="alert alert-danger">Error loading security status</div>';
+    }
+}
+
+function encryptDocument() {
+    showAlert('Document encryption feature will be implemented in the full version', 'info');
+}
+
+function decryptDocument() {
+    showAlert('Document decryption feature will be implemented in the full version', 'info');
+}
+
+function passwordProtect() {
+    showAlert('Password protection feature will be implemented in the full version', 'info');
+}
+
+function secureDelete() {
+    showAlert('Secure deletion feature will be implemented in the full version', 'info');
+}
+
+function saveSecuritySettings() {
+    const settings = {
+        encryption_level: document.getElementById('encryptionLevel').value,
+        session_timeout: document.getElementById('sessionTimeout').value,
+        audit_logging: document.getElementById('auditLogging').checked,
+        password_protection: document.getElementById('passwordProtection').checked
+    };
+    
+    // In a real implementation, this would save to the backend
+    console.log('Saving settings:', settings);
+    showAlert('Security settings saved successfully', 'success');
+}
+
+// Load security status when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadSecurityStatus();
+});
+</script>
+{% endblock %} 

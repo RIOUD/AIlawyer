@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Query History - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-history text-primary me-2"></i>Query History</h2>
+                <p class="text-muted">
+                    View and manage your previous legal queries and responses.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-list me-2"></i>Recent Queries</h5>
+                    <div>
+                        <button class="btn btn-outline-primary btn-sm" onclick="exportHistory()">
+                            <i class="fas fa-download me-1"></i>Export
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="clearHistory()">
+                            <i class="fas fa-trash me-1"></i>Clear All
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Query</th>
+                                <th>Response</th>
+                                <th>Sources</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTable">
+                            <tr>
+                                <td>2024-08-15 14:30</td>
+                                <td>What are the requirements for an employment contract?</td>
+                                <td>Based on Belgian legal documents...</td>
+                                <td>2 sources</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                    <button class="btn btn-sm btn-outline-secondary">Export</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2024-08-15 14:25</td>
+                                <td>Privacy regulations in Brussels</td>
+                                <td>Brussels privacy regulations include...</td>
+                                <td>1 source</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">View</button>
+                                    <button class="btn btn-sm btn-outline-secondary">Export</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function exportHistory() {
+    showAlert('History export feature will be implemented in the full version', 'info');
+}
+
+function clearHistory() {
+    if (confirm('Are you sure you want to clear all query history?')) {
+        document.getElementById('historyTable').innerHTML = '<tr><td colspan="5" class="text-center text-muted">No queries found</td></tr>';
+        showAlert('Query history cleared', 'success');
+    }
+}
+</script>
+{% endblock %} 

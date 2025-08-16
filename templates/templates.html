@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Document Templates - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-file-contract text-primary me-2"></i>Document Templates</h2>
+                <p class="text-muted">
+                    Generate professional legal documents from customizable templates. 
+                    All templates are designed for Belgian legal requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-list me-2"></i>Available Templates</h5>
+                
+                <div class="row">
+                    {% for template in templates %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="fas fa-file-alt text-primary me-2"></i>
+                                    {{ template.name }}
+                                </h6>
+                                <p class="card-text text-muted">{{ template.description }}</p>
+                                
+                                <div class="mb-3">
+                                    <strong>Required Variables:</strong>
+                                    <div class="mt-2">
+                                        {% for variable in template.variables %}
+                                        <span class="badge bg-light text-dark me-1">{{ variable }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-sm" onclick="generateDocument('{{ template.id }}')">
+                                    <i class="fas fa-magic me-1"></i>Generate Document
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Document Generation Modal -->
+<div class="modal fade" id="documentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-file-contract me-2"></i>Generate Document
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="documentForm">
+                    <div id="variablesContainer">
+                        <!-- Variables will be dynamically added here -->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="submitDocumentGeneration()">
+                    <i class="fas fa-magic me-1"></i>Generate
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentTemplate = null;
+
+function generateDocument(templateId) {
+    currentTemplate = templateId;
+    
+    // Find template data
+    const template = {{ templates|tojson }}.find(t => t.id === templateId);
+    if (!template) {
+        showAlert('Template not found', 'danger');
+        return;
+    }
+    
+    // Build variables form
+    let variablesHtml = '';
+    template.variables.forEach(variable => {
+        variablesHtml += `
+            <div class="mb-3">
+                <label for="${variable}" class="form-label">${variable.replace(/_/g, ' ').toUpperCase()}</label>
+                <input type="text" class="form-control" id="${variable}" name="${variable}" required>
+            </div>
+        `;
+    });
+    
+    document.getElementById('variablesContainer').innerHTML = variablesHtml;
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('documentModal'));
+    modal.show();
+}
+
+function submitDocumentGeneration() {
+    const form = document.getElementById('documentForm');
+    const formData = new FormData(form);
+    
+    // Convert to object
+    const variables = {};
+    for (let [key, value] of formData.entries()) {
+        variables[key] = value;
+    }
+    
+    // Validate
+    if (Object.keys(variables).length === 0) {
+        showAlert('Please fill in all required fields', 'warning');
+        return;
+    }
+    
+    // Submit
+    fetch('/api/generate_document', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            template_id: currentTemplate,
+            variables: variables
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            showAlert(`Document generated successfully: ${data.filename}`, 'success');
+            bootstrap.Modal.getInstance(document.getElementById('documentModal')).hide();
+        } else {
+            showAlert('Error generating document', 'danger');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('Error generating document', 'danger');
+    });
+}
+</script>
+{% endblock %} 

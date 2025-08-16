@@ -1,0 +1,36 @@
+{
+  "feedback_prompts": {
+    "usability": [
+      "How easy was it to find the information you needed?",
+      "How intuitive was the interface?",
+      "Were there any confusing elements?"
+    ],
+    "performance": [
+      "How fast did the system respond to your queries?",
+      "Were there any delays or timeouts?",
+      "How would you rate the overall performance?"
+    ],
+    "accuracy": [
+      "How accurate were the legal answers provided?",
+      "Were the source citations helpful?",
+      "Did you find any incorrect information?"
+    ],
+    "security": [
+      "How confident are you in the security of your data?",
+      "Were there any security concerns?",
+      "How important is offline operation to you?"
+    ]
+  },
+  "feedback_thresholds": {
+    "min_feedback_length": 10,
+    "max_feedback_length": 1000,
+    "daily_feedback_limit": 10,
+    "session_feedback_limit": 3
+  },
+  "privacy_settings": {
+    "anonymize_by_default": true,
+    "retention_days": 365,
+    "encrypt_sensitive_data": true,
+    "allow_data_export": false
+  }
+}

@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Filter Management - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-filter text-primary me-2"></i>Filter Management</h2>
+                <p class="text-muted">
+                    Configure search filters to narrow down results by document type, jurisdiction, language, and date range.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-cogs me-2"></i>Filter Configuration</h5>
+                <form id="filterForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Document Type</label>
+                            <select class="form-select" id="documentType">
+                                <option value="all">All Types</option>
+                                <option value="wetboeken">Wetboeken (Codes)</option>
+                                <option value="jurisprudentie">Jurisprudentie (Case Law)</option>
+                                <option value="contracten">Contracten (Contracts)</option>
+                                <option value="advocatenstukken">Advocatenstukken (Legal Documents)</option>
+                                <option value="rechtsleer">Rechtsleer (Legal Doctrine)</option>
+                                <option value="reglementering">Reglementering (Regulations)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Jurisdiction</label>
+                            <select class="form-select" id="jurisdiction">
+                                <option value="all">All Jurisdictions</option>
+                                <option value="federaal">Federal (Federaal)</option>
+                                <option value="vlaams">Flemish (Vlaams)</option>
+                                <option value="waals">Walloon (Waals)</option>
+                                <option value="brussels">Brussels (Brussels)</option>
+                                <option value="gemeentelijk">Municipal (Gemeentelijk)</option>
+                                <option value="provinciaal">Provincial (Provinciaal)</option>
+                                <option value="eu">European Union (EU)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Language</label>
+                            <select class="form-select" id="language">
+                                <option value="all">All Languages</option>
+                                <option value="dutch">Dutch (Nederlands)</option>
+                                <option value="french">French (Français)</option>
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date Range</label>
+                            <select class="form-select" id="dateRange">
+                                <option value="all">All Dates</option>
+                                <option value="2024">2024</option>
+                                <option value="2023-2024">2023-2024</option>
+                                <option value="2020-2024">2020-2024</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Save Filters
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="clearFilters()">
+                            <i class="fas fa-times me-1"></i>Clear All
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-info-circle me-2"></i>Current Filters</h5>
+                <div id="currentFilters">
+                    <p class="text-muted">No filters applied</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function clearFilters() {
+    document.getElementById('documentType').value = 'all';
+    document.getElementById('jurisdiction').value = 'all';
+    document.getElementById('language').value = 'all';
+    document.getElementById('dateRange').value = 'all';
+    updateCurrentFilters();
+    showAlert('All filters cleared', 'info');
+}
+
+function updateCurrentFilters() {
+    const filters = {
+        documentType: document.getElementById('documentType').value,
+        jurisdiction: document.getElementById('jurisdiction').value,
+        language: document.getElementById('language').value,
+        dateRange: document.getElementById('dateRange').value
+    };
+    
+    let html = '';
+    let hasFilters = false;
+    
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value !== 'all') {
+            hasFilters = true;
+            html += `<div class="mb-2"><strong>${key}:</strong> ${value}</div>`;
+        }
+    });
+    
+    if (!hasFilters) {
+        html = '<p class="text-muted">No filters applied</p>';
+    }
+    
+    document.getElementById('currentFilters').innerHTML = html;
+}
+
+document.getElementById('filterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    updateCurrentFilters();
+    showAlert('Filters saved successfully', 'success');
+});
+
+// Update current filters when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateCurrentFilters();
+});
+
+// Update current filters when any select changes
+document.querySelectorAll('select').forEach(select => {
+    select.addEventListener('change', updateCurrentFilters);
+});
+</script>
+{% endblock %} 

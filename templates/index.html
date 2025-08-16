@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h1 class="card-title">
+                    <i class="fas fa-balance-scale text-primary me-3"></i>
+                    Welcome to LawyerAgent
+                </h1>
+                <p class="card-text lead">
+                    Secure Offline Belgian Legal Assistant
+                </p>
+                <p class="text-muted">
+                    AI-powered legal document analysis with complete privacy and Belgian legal context
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h3><i class="fas fa-bolt me-2"></i>Quick Actions</h3>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h5 class="card-title">Legal Query</h5>
+                <p class="card-text">Ask questions about your legal documents</p>
+                <a href="/query" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-1"></i>Start Query
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h5 class="card-title">Document Templates</h5>
+                <p class="card-text">Generate legal documents from templates</p>
+                <a href="/templates" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-1"></i>View Templates
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <h5 class="card-title">Manage Filters</h5>
+                <p class="card-text">Set search filters for better results</p>
+                <a href="/filters" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-1"></i>Configure
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h5 class="card-title">Security</h5>
+                <p class="card-text">Manage encryption and security settings</p>
+                <a href="/security" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-1"></i>Security
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Status -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h3><i class="fas fa-chart-line me-2"></i>System Status</h3>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h4 class="text-success">{{ documents|length }}</h4>
+                <p class="card-text">Documents Loaded</p>
+                <span class="status-badge status-success">Active</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h4 class="text-primary">{{ templates|length }}</h4>
+                <p class="card-text">Available Templates</p>
+                <span class="status-badge status-success">Ready</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h4 class="text-warning">AES-256</h4>
+                <p class="card-text">Encryption Level</p>
+                <span class="status-badge status-success">Secure</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h4 class="text-info">Offline</h4>
+                <p class="card-text">Operation Mode</p>
+                <span class="status-badge status-success">100% Private</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Documents -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h3><i class="fas fa-folder-open me-2"></i>Recent Documents</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>Type</th>
+                                <th>Jurisdiction</th>
+                                <th>Language</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc in documents %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                    {{ doc.name }}
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ doc.type }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ doc.jurisdiction }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ doc.language }}</span>
+                                </td>
+                                <td>{{ doc.date }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Overview -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3><i class="fas fa-star me-2"></i>Key Features</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-brain text-primary me-2"></i>AI-Powered Analysis</h5>
+                <p class="card-text">
+                    Advanced AI algorithms analyze your legal documents to provide accurate, 
+                    context-aware responses with source verification.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Natural language queries</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Source verification</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Belgian legal context</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-shield-alt text-primary me-2"></i>Complete Privacy</h5>
+                <p class="card-text">
+                    All processing occurs locally on your machine. No data is transmitted 
+                    to external services, ensuring complete client confidentiality.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>100% offline operation</li>
+                    <li><i class="fas fa-check text-success me-2"></i>AES-256 encryption</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Audit logging</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-flag text-primary me-2"></i>Belgian Legal Focus</h5>
+                <p class="card-text">
+                    Specialized for Belgian legal system with support for federal, 
+                    Flemish, Walloon, and Brussels jurisdictions.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Multi-language support</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Jurisdiction filtering</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Legal templates</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-cogs text-primary me-2"></i>Advanced Features</h5>
+                <p class="card-text">
+                    Professional-grade features including document generation, 
+                    cross-referencing, and predictive risk analysis.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Document templates</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Cross-referencing</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Risk assessment</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

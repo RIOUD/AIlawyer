@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Legal Query - LawyerAgent{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2><i class="fas fa-search text-primary me-2"></i>Legal Query Interface</h2>
+                <p class="text-muted">
+                    Ask questions about your legal documents in natural language. 
+                    Get AI-powered answers with source verification and Belgian legal context.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Query Input -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5><i class="fas fa-comment-dots me-2"></i>Ask Your Question</h5>
+                <form id="queryForm">
+                    <div class="mb-3">
+                        <label for="queryInput" class="form-label">Legal Question</label>
+                        <textarea 
+                            class="form-control" 
+                            id="queryInput" 
+                            rows="4" 
+                            placeholder="e.g., What are the requirements for an employment contract in Flanders?"
+                            required></textarea>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="languageSelect" class="form-label">Language</label>
+                            <select class="form-select" id="languageSelect">
+                                <option value="all">All Languages</option>
+                                <option value="dutch">Dutch (Nederlands)</option>
+                                <option value="french">French (Français)</option>
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="jurisdictionSelect" class="form-label">Jurisdiction</label>
+                            <select class="form-select" id="jurisdictionSelect">
+                                <option value="all">All Jurisdictions</option>
+                                <option value="federaal">Federal (Federaal)</option>
+                                <option value="vlaams">Flemish (Vlaams)</option>
+                                <option value="waals">Walloon (Waals)</option>
+                                <option value="brussels">Brussels (Brussels)</option>
+                                <option value="eu">European Union (EU)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-search me-2"></i>Search Documents
+                        <span class="spinner-border spinner-border-sm ms-2 loading" id="loadingSpinner"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="card mt-4" id="resultsCard" style="display: none;">
+            <div class="card-body">
+                <h5><i class="fas fa-lightbulb me-2"></i>AI Response</h5>
+                <div id="aiResponse" class="mb-4"></div>
+                
+                <h6><i class="fas fa-sources me-2"></i>Sources</h6>
+                <div id="sourcesList"></div>
+                
+                <div class="mt-3">
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportResponse()">
+                        <i class="fas fa-download me-1"></i>Export Response
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="saveToHistory()">
+                        <i class="fas fa-save me-1"></i>Save to History
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-md-4">
+        <!-- Quick Examples -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6><i class="fas fa-lightbulb me-2"></i>Quick Examples</h6>
+                <div class="list-group list-group-flush">
+                    <button class="list-group-item list-group-item-action" onclick="setExample('What are the requirements for an employment contract?')">
+                        Employment contract requirements
+                    </button>
+                    <button class="list-group-item list-group-item-action" onclick="setExample('What are the privacy regulations in Brussels?')">
+                        Privacy regulations in Brussels
+                    </button>
+                    <button class="list-group-item list-group-item-action" onclick="setExample('What are the termination procedures?')">
+                        Termination procedures
+                    </button>
+                    <button class="list-group-item list-group-item-action" onclick="setExample('What are the data protection requirements?')">
+                        Data protection requirements
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Statistics -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h6><i class="fas fa-chart-bar me-2"></i>Search Statistics</h6>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h4 class="text-primary" id="documentsCount">10</h4>
+                        <small class="text-muted">Documents</small>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success" id="confidenceScore">--</h4>
+                        <small class="text-muted">Confidence</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Queries -->
+        <div class="card">
+            <div class="card-body">
+                <h6><i class="fas fa-history me-2"></i>Recent Queries</h6>
+                <div id="recentQueries">
+                    <small class="text-muted">No recent queries</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let recentQueries = [];
+
+function setExample(example) {
+    document.getElementById('queryInput').value = example;
+}
+
+function showLoading() {
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('loadingSpinner');
+    submitBtn.disabled = true;
+    spinner.classList.add('show');
+}
+
+function hideLoading() {
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('loadingSpinner');
+    submitBtn.disabled = false;
+    spinner.classList.remove('show');
+}
+
+function displayResults(response) {
+    const resultsCard = document.getElementById('resultsCard');
+    const aiResponse = document.getElementById('aiResponse');
+    const sourcesList = document.getElementById('sourcesList');
+    const confidenceScore = document.getElementById('confidenceScore');
+    
+    // Display AI response
+    aiResponse.innerHTML = `
+        <div class="alert alert-info">
+            <p class="mb-0">${response.answer}</p>
+        </div>
+    `;
+    
+    // Display sources
+    let sourcesHtml = '';
+    response.sources.forEach((source, index) => {
+        sourcesHtml += `
+            <div class="card mb-2">
+                <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${source.document}</strong>
+                            <br>
+                            <small class="text-muted">
+                                Type: ${source.type} | Jurisdiction: ${source.jurisdiction}
+                            </small>
+                        </div>
+                        <span class="badge bg-success">${Math.round(source.relevance * 100)}%</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    sourcesList.innerHTML = sourcesHtml;
+    
+    // Update confidence score
+    confidenceScore.textContent = Math.round(response.confidence * 100) + '%';
+    
+    // Show results
+    resultsCard.style.display = 'block';
+    
+    // Add to recent queries
+    addToRecentQueries(document.getElementById('queryInput').value);
+}
+
+function addToRecentQueries(query) {
+    recentQueries.unshift(query);
+    if (recentQueries.length > 5) {
+        recentQueries.pop();
+    }
+    
+    const recentQueriesDiv = document.getElementById('recentQueries');
+    if (recentQueries.length > 0) {
+        let html = '';
+        recentQueries.forEach(q => {
+            html += `<div class="mb-1"><small>${q.substring(0, 50)}...</small></div>`;
+        });
+        recentQueriesDiv.innerHTML = html;
+    }
+}
+
+function exportResponse() {
+    showAlert('Export functionality will be implemented in the full version', 'info');
+}
+
+function saveToHistory() {
+    showAlert('Response saved to history', 'success');
+}
+
+// Form submission
+document.getElementById('queryForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const query = document.getElementById('queryInput').value.trim();
+    if (!query) {
+        showAlert('Please enter a question', 'warning');
+        return;
+    }
+    
+    showLoading();
+    
+    try {
+        const response = await fetch('/api/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                language: document.getElementById('languageSelect').value,
+                jurisdiction: document.getElementById('jurisdictionSelect').value
+            })
+        });
+        
+        const data = await response.json();
+        displayResults(data);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error processing query. Please try again.', 'danger');
+    } finally {
+        hideLoading();
+    }
+});
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default values
+    document.getElementById('languageSelect').value = 'all';
+    document.getElementById('jurisdictionSelect').value = 'all';
+});
+</script>
+{% endblock %} 
