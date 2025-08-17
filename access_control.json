@@ -1,0 +1,11 @@
+{
+  "password_protected_files": {},
+  "user_permissions": {},
+  "session_timeouts": {
+    "default": 3600,
+    "sensitive": 1800
+  },
+  "failed_login_attempts": {},
+  "lockout_threshold": 5,
+  "lockout_duration": 900
+}

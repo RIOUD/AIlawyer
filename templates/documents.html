@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Documents') }} - {{ _('LawyerAgent') }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">
+                    <i class="fas fa-file-alt text-primary me-3"></i>
+                    {{ _('Documents') }}
+                </h1>
+                <p class="card-text">
+                    {{ _('Manage and search your legal documents') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{ _('Search documents...') }}" id="searchInput">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search"></i> {{ _('Search') }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            <select class="form-select" id="typeFilter">
+                                <option value="">{{ _('All Types') }}</option>
+                                <option value="contracten">{{ _('Contracts') }}</option>
+                                <option value="wetboeken">{{ _('Law Books') }}</option>
+                                <option value="jurisprudentie">{{ _('Case Law') }}</option>
+                                <option value="reglementering">{{ _('Regulations') }}</option>
+                            </select>
+                            <select class="form-select" id="jurisdictionFilter">
+                                <option value="">{{ _('All Jurisdictions') }}</option>
+                                <option value="federaal">{{ _('Federal') }}</option>
+                                <option value="vlaams">{{ _('Flemish') }}</option>
+                                <option value="waals">{{ _('Walloon') }}</option>
+                                <option value="brussels">{{ _('Brussels') }}</option>
+                                <option value="eu">{{ _('European Union') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Documents List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>{{ _('Document List') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ _('Document Name') }}</th>
+                                <th>{{ _('Type') }}</th>
+                                <th>{{ _('Jurisdiction') }}</th>
+                                <th>{{ _('Language') }}</th>
+                                <th>{{ _('Date') }}</th>
+                                <th>{{ _('Actions') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc in documents %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                    {{ doc.name }}
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ doc.type }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ doc.jurisdiction }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ doc.language }}</span>
+                                </td>
+                                <td>{{ doc.date }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-outline-primary" title="{{ _('View') }}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" title="{{ _('Download') }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-info" title="{{ _('Search in Document') }}">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const typeFilter = document.getElementById('typeFilter');
+    const jurisdictionFilter = document.getElementById('jurisdictionFilter');
+    
+    function filterDocuments() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedType = typeFilter.value;
+        const selectedJurisdiction = jurisdictionFilter.value;
+        
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const name = row.cells[0].textContent.toLowerCase();
+            const type = row.cells[1].textContent.toLowerCase();
+            const jurisdiction = row.cells[2].textContent.toLowerCase();
+            
+            const matchesSearch = name.includes(searchTerm);
+            const matchesType = !selectedType || type.includes(selectedType);
+            const matchesJurisdiction = !selectedJurisdiction || jurisdiction.includes(selectedJurisdiction);
+            
+            if (matchesSearch && matchesType && matchesJurisdiction) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    
+    searchInput.addEventListener('input', filterDocuments);
+    typeFilter.addEventListener('change', filterDocuments);
+    jurisdictionFilter.addEventListener('change', filterDocuments);
+});
+</script>
+{% endblock %} 

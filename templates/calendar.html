@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Calendar') }} - {{ _('LawyerAgent') }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="card-title">
+                            <i class="fas fa-calendar text-primary me-3"></i>
+                            {{ _('Calendar & Scheduling') }}
+                        </h1>
+                        <p class="card-text">
+                            {{ _('Manage your legal appointments, court hearings, and meetings') }}
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                        <i class="fas fa-plus me-2"></i>{{ _('Add Event') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar Navigation -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <button class="btn btn-outline-secondary me-2" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary me-2" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <span class="h5 mb-0" id="currentMonth">January 2024</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" onclick="today()">{{ _('Today') }}</button>
+                        <select class="form-select d-inline-block w-auto" id="viewType">
+                            <option value="month">{{ _('Month') }}</option>
+                            <option value="week">{{ _('Week') }}</option>
+                            <option value="day">{{ _('Day') }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calendar Grid -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upcoming Events -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-clock me-2"></i>{{ _('Upcoming Events') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for event in events %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-{{ 'danger' if event.type == 'court_hearing' else 'primary' if event.type == 'client_meeting' else 'info' }}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="card-title">{{ event.title }}</h6>
+                                        <p class="card-text text-muted">
+                                            <i class="fas fa-calendar me-1"></i>{{ event.date }}
+                                            <br><i class="fas fa-clock me-1"></i>{{ event.time }}
+                                            <br><i class="fas fa-user me-1"></i>{{ event.client }}
+                                            <br><i class="fas fa-map-marker-alt me-1"></i>{{ event.location }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-{{ 'danger' if event.type == 'court_hearing' else 'primary' if event.type == 'client_meeting' else 'info' }}">
+                                            {{ _('Court Hearing') if event.type == 'court_hearing' else _('Client Meeting') if event.type == 'client_meeting' else _('Document Review') }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="fas fa-edit"></i> {{ _('Edit') }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-eye"></i> {{ _('View') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Event Modal -->
+<div class="modal fade" id="addEventModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ _('Add New Event') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEventForm">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="eventTitle" class="form-label">{{ _('Event Title') }}</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="eventType" class="form-label">{{ _('Event Type') }}</label>
+                            <select class="form-select" id="eventType" required>
+                                <option value="">{{ _('Select Type') }}</option>
+                                <option value="court_hearing">{{ _('Court Hearing') }}</option>
+                                <option value="client_meeting">{{ _('Client Meeting') }}</option>
+                                <option value="document_review">{{ _('Document Review') }}</option>
+                                <option value="consultation">{{ _('Consultation') }}</option>
+                                <option value="deadline">{{ _('Deadline') }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="eventDate" class="form-label">{{ _('Date') }}</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="eventTime" class="form-label">{{ _('Time') }}</label>
+                            <input type="time" class="form-control" id="eventTime" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="eventClient" class="form-label">{{ _('Client') }}</label>
+                            <select class="form-select" id="eventClient">
+                                <option value="">{{ _('Select Client') }}</option>
+                                <option value="Maître Jean Dupont">Maître Jean Dupont</option>
+                                <option value="Me. Marie Dubois">Me. Marie Dubois</option>
+                                <option value="Adv. Pierre Martin">Adv. Pierre Martin</option>
+                                <option value="Mevr. Sophie Leroy">Mevr. Sophie Leroy</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="eventLocation" class="form-label">{{ _('Location') }}</label>
+                            <input type="text" class="form-control" id="eventLocation" placeholder="{{ _('Office, Court, etc.') }}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDescription" class="form-label">{{ _('Description') }}</label>
+                        <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cancel') }}</button>
+                <button type="button" class="btn btn-primary" onclick="addEvent()">{{ _('Add Event') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize FullCalendar
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: '{{ g.current_language }}',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            {% for event in events %}
+            {
+                id: {{ event.id }},
+                title: '{{ event.title }}',
+                start: '{{ event.date }}T{{ event.time }}',
+                backgroundColor: '{{ "#dc3545" if event.type == "court_hearing" else "#007bff" if event.type == "client_meeting" else "#17a2b8" }}',
+                borderColor: '{{ "#dc3545" if event.type == "court_hearing" else "#007bff" if event.type == "client_meeting" else "#17a2b8" }}',
+                extendedProps: {
+                    type: '{{ event.type }}',
+                    client: '{{ event.client }}',
+                    location: '{{ event.location }}'
+                }
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ],
+        eventClick: function(info) {
+            alert('{{ _("Event:") }} ' + info.event.title + '\n{{ _("Client:") }} ' + info.event.extendedProps.client);
+        }
+    });
+    calendar.render();
+    
+    // Set current month
+    updateCurrentMonth();
+});
+
+function updateCurrentMonth() {
+    const now = new Date();
+    const monthNames = ['{{ _("January") }}', '{{ _("February") }}', '{{ _("March") }}', '{{ _("April") }}', '{{ _("May") }}', '{{ _("June") }}', '{{ _("July") }}', '{{ _("August") }}', '{{ _("September") }}', '{{ _("October") }}', '{{ _("November") }}', '{{ _("December") }}'];
+    document.getElementById('currentMonth').textContent = monthNames[now.getMonth()] + ' ' + now.getFullYear();
+}
+
+function previousMonth() {
+    // Implementation for previous month
+    console.log('Previous month');
+}
+
+function nextMonth() {
+    // Implementation for next month
+    console.log('Next month');
+}
+
+function today() {
+    // Implementation for today
+    console.log('Today');
+}
+
+function addEvent() {
+    const form = document.getElementById('addEventForm');
+    const formData = new FormData(form);
+    
+    // This would normally send to the API
+    alert('{{ _("Event added successfully!") }}');
+    $('#addEventModal').modal('hide');
+    form.reset();
+}
+</script>
+{% endblock %} 

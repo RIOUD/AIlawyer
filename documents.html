@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents & Templates - Legal Platform MVP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/templates.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 30px;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            border-radius: 10px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            padding: 12px 15px;
+        }
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link.active {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        .template-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #3498db;
+            cursor: pointer;
+        }
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .template-card.employment {
+            border-left-color: #27ae60;
+        }
+        .template-card.gdpr {
+            border-left-color: #e74c3c;
+        }
+        .template-card.commercial {
+            border-left-color: #f39c12;
+        }
+        .template-card.litigation {
+            border-left-color: #9b59b6;
+        }
+        .template-card.real-estate {
+            border-left-color: #1abc9c;
+        }
+        .template-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .template-icon.employment {
+            background: #27ae60;
+        }
+        .template-icon.gdpr {
+            background: #e74c3c;
+        }
+        .template-icon.commercial {
+            background: #f39c12;
+        }
+        .template-icon.litigation {
+            background: #9b59b6;
+        }
+        .template-icon.real-estate {
+            background: #1abc9c;
+        }
+        .template-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .template-description {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .template-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .template-category {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        .template-usage {
+            color: #7f8c8d;
+        }
+        .generate-btn {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 25px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+        .documents-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .document-item:hover {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding-left: 10px;
+        }
+        .document-item:last-child {
+            border-bottom: none;
+        }
+        .document-info {
+            flex: 1;
+        }
+        .document-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .document-meta {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        .document-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .document-action-btn {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .document-action-btn.view {
+            background: #3498db;
+            color: white;
+        }
+        .document-action-btn.download {
+            background: #27ae60;
+            color: white;
+        }
+        .document-action-btn.edit {
+            background: #f39c12;
+            color: white;
+        }
+        .document-action-btn:hover {
+            transform: translateY(-2px);
+        }
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2980b9, #1f5f8b);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .quick-actions {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+        .template-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        .preview-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .preview-content {
+            color: #7f8c8d;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        .custom-template-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .custom-template-item:hover {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding-left: 10px;
+        }
+        .custom-template-item:last-child {
+            border-bottom: none;
+        }
+        .custom-template-info {
+            flex: 1;
+        }
+        .custom-template-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .custom-template-meta {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        .custom-template-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .custom-template-action-btn {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .custom-template-action-btn.edit {
+            background: #f39c12;
+            color: white;
+        }
+        .custom-template-action-btn.delete {
+            background: #e74c3c;
+            color: white;
+        }
+        .custom-template-action-btn:hover {
+            transform: translateY(-2px);
+        }
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #2980b9;
+            background: #e3f2fd;
+        }
+        .upload-area.dragover {
+            border-color: #27ae60;
+            background: #d4edda;
+        }
+        .upload-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .upload-text {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .upload-hint {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        /* New styles for PDF upload */
+        .pdf-upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pdf-upload-area:hover {
+            border-color: #2980b9;
+            background: #e3f2fd;
+        }
+        .pdf-upload-area.dragover {
+            border-color: #27ae60;
+            background: #d4edda;
+        }
+        .pdf-upload-content {
+            text-align: center;
+        }
+        .pdf-preview-content {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .pdf-preview-content textarea {
+            width: 100%;
+            height: 150px;
+            resize: vertical;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h4 class="mb-4"><i class="fas fa-balance-scale"></i> Legal Platform</h4>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a class="nav-link" href="clients.html">
+                            <i class="fas fa-users"></i> Clients
+                        </a>
+                        <a class="nav-link" href="calendar.html">
+                            <i class="fas fa-calendar"></i> Calendar
+                        </a>
+                        <a class="nav-link" href="research.html">
+                            <i class="fas fa-search"></i> Research
+                        </a>
+                        <a class="nav-link active" href="documents.html">
+                            <i class="fas fa-file-alt"></i> Documents
+                        </a>
+                        <a class="nav-link" href="billing.html">
+                            <i class="fas fa-dollar-sign"></i> Billing
+                        </a>
+                        <a class="nav-link" href="analytics.html">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </a>
+                        <a class="nav-link" href="settings.html">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </nav>
+                    
+                    <hr class="my-4">
+                    
+                    <h6><i class="fas fa-chart-pie"></i> Document Stats</h6>
+                    <div class="stats-card">
+                        <div class="stats-number" id="totalTemplates">12</div>
+                        <div>Available Templates</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="generatedDocs">25</div>
+                        <div>Generated Documents</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="activeClients">4</div>
+                        <div>Active Clients</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <div class="main-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-file-alt"></i> Documents & Templates</h2>
+                        <button class="btn generate-btn" onclick="showTemplateModal()">
+                            <i class="fas fa-plus"></i> Generate Document
+                        </button>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h5 class="mb-3"><i class="fas fa-bolt"></i> Quick Actions</h5>
+                        <a href="#" class="action-btn" onclick="generateEmploymentContract()">
+                            <i class="fas fa-briefcase"></i> Employment Contract
+                        </a>
+                        <a href="#" class="action-btn" onclick="generateGDPRPolicy()">
+                            <i class="fas fa-shield-alt"></i> GDPR Policy
+                        </a>
+                        <a href="#" class="action-btn" onclick="generateCommercialContract()">
+                            <i class="fas fa-handshake"></i> Commercial Contract
+                        </a>
+                        <a href="#" class="action-btn" onclick="generateLegalLetter()">
+                            <i class="fas fa-envelope"></i> Legal Letter
+                        </a>
+                        <a href="#" class="action-btn" onclick="generateComplianceReport()">
+                            <i class="fas fa-clipboard-check"></i> Compliance Report
+                        </a>
+                        <a href="#" class="action-btn" onclick="showUploadTemplateModal()">
+                            <i class="fas fa-upload"></i> Upload Template
+                        </a>
+                    </div>
+
+                    <!-- Legal Templates -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="template-card employment" onclick="showTemplateDetails('employment_contract')">
+                                <div class="template-icon employment">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="template-title">Employment Contract</div>
+                                <div class="template-description">
+                                    Comprehensive employment agreement template compliant with Belgian labor law, including all required clauses and protections.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Employment Law</span>
+                                    <span class="template-usage">Used 8 times</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="template-card gdpr" onclick="showTemplateDetails('gdpr_privacy_policy')">
+                                <div class="template-icon gdpr">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="template-title">GDPR Privacy Policy</div>
+                                <div class="template-description">
+                                    Data protection policy template compliant with GDPR requirements and Belgian privacy regulations.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Privacy Law</span>
+                                    <span class="template-usage">Used 12 times</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="template-card commercial" onclick="showTemplateDetails('commercial_contract')">
+                                <div class="template-icon commercial">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="template-title">Commercial Contract</div>
+                                <div class="template-description">
+                                    Business agreement template covering sales, services, and partnership arrangements under Belgian commercial law.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Commercial Law</span>
+                                    <span class="template-usage">Used 6 times</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="template-card litigation" onclick="showTemplateDetails('legal_letter')">
+                                <div class="template-icon litigation">
+                                    <i class="fas fa-gavel"></i>
+                                </div>
+                                <div class="template-title">Legal Letter</div>
+                                <div class="template-description">
+                                    Professional legal correspondence template for client communications and formal notices.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Litigation</span>
+                                    <span class="template-usage">Used 15 times</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="template-card real-estate" onclick="showTemplateDetails('real_estate_contract')">
+                                <div class="template-icon real-estate">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="template-title">Real Estate Contract</div>
+                                <div class="template-description">
+                                    Property transaction agreement template including lease, purchase, and rental agreements.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Real Estate</span>
+                                    <span class="template-usage">Used 4 times</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="template-card gdpr" onclick="showTemplateDetails('compliance_report')">
+                                <div class="template-icon gdpr">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="template-title">Compliance Report</div>
+                                <div class="template-description">
+                                    Regulatory compliance assessment template for various legal and industry requirements.
+                                </div>
+                                <div class="template-meta">
+                                    <span class="template-category">Compliance</span>
+                                    <span class="template-usage">Used 3 times</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Templates Section -->
+                    <div class="documents-section">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5><i class="fas fa-folder-open"></i> Custom Templates</h5>
+                            <button class="btn btn-outline-primary btn-sm" onclick="showUploadTemplateModal()">
+                                <i class="fas fa-plus"></i> Add Template
+                            </button>
+                        </div>
+                        <div id="customTemplatesList">
+                            <!-- Custom templates will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Documents -->
+                    <div class="documents-section">
+                        <h5 class="mb-3"><i class="fas fa-history"></i> Recent Documents</h5>
+                        <div id="recentDocumentsList">
+                            <!-- Documents will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Details Modal -->
+    <div class="modal fade" id="templateDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateDetailsTitle">Template Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="templateDetailsBody">
+                    <!-- Template details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="generateDocument()">Generate Document</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Document Modal -->
+    <div class="modal fade" id="generateDocumentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-file-download"></i> Generate Document</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="generateDocumentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Template *</label>
+                            <select class="form-control" id="documentTemplate" required>
+                                <option value="">Select a template</option>
+                                <option value="employment_contract">Employment Contract</option>
+                                <option value="gdpr_privacy_policy">GDPR Privacy Policy</option>
+                                <option value="commercial_contract">Commercial Contract</option>
+                                <option value="legal_letter">Legal Letter</option>
+                                <option value="real_estate_contract">Real Estate Contract</option>
+                                <option value="compliance_report">Compliance Report</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Client</label>
+                            <select class="form-control" id="documentClient">
+                                <option value="">No client</option>
+                                <!-- Clients will be loaded here -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Document Title</label>
+                            <input type="text" class="form-control" id="documentTitle" placeholder="Enter document title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName" placeholder="Enter company name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact Person</label>
+                            <input type="text" class="form-control" id="contactPerson" placeholder="Enter contact person">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="contactEmail" placeholder="Enter email address">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" id="companyAddress" rows="3" placeholder="Enter company address"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Any additional information or special requirements"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="generateDocumentFromForm()">Generate Document</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Upload Modal -->
+    <div class="modal fade" id="templateUploadModal" tabindex="-1" aria-labelledby="templateUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateUploadModalLabel">Upload Custom Template</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Upload Method Tabs -->
+                    <ul class="nav nav-tabs mb-3" id="uploadMethodTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text-upload" type="button" role="tab">
+                                <i class="fas fa-edit me-2"></i>Text Input
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pdf-tab" data-bs-toggle="tab" data-bs-target="#pdf-upload" type="button" role="tab">
+                                <i class="fas fa-file-pdf me-2"></i>PDF Upload
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="uploadMethodTabContent">
+                        <!-- Text Input Tab -->
+                        <div class="tab-pane fade show active" id="text-upload" role="tabpanel">
+                            <form id="templateUploadForm">
+                                <div class="mb-3">
+                                    <label for="templateName" class="form-label">Template Name *</label>
+                                    <input type="text" class="form-control" id="templateName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="templateDescription" class="form-label">Template Description</label>
+                                    <textarea class="form-control" id="templateDescription" rows="2" placeholder="Brief description of this template's purpose..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="templateContent" class="form-label">Template Content *</label>
+                                    <textarea class="form-control" id="templateContent" rows="12" required placeholder="Enter your template content here. Use {{VARIABLE_NAME}} for placeholders.
+
+Example:
+Dear {{CLIENT_NAME}},
+
+This letter confirms our representation in the matter of {{CASE_DESCRIPTION}}.
+
+Please contact {{LAWYER_NAME}} at {{LAWYER_EMAIL}} with any questions.
+
+Best regards,
+{{LAW_FIRM_NAME}}"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="requiredVariables" class="form-label">Required Variables</label>
+                                    <input type="text" class="form-control" id="requiredVariables" placeholder="CLIENT_NAME, CASE_DESCRIPTION, LAWYER_NAME, LAWYER_EMAIL, LAW_FIRM_NAME">
+                                    <div class="form-text">Comma-separated list of variables used in the template</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="templateCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="templateCategory">
+                                        <option value="employment">Employment Law</option>
+                                        <option value="privacy">Privacy Law</option>
+                                        <option value="commercial">Commercial Law</option>
+                                        <option value="litigation">Litigation</option>
+                                        <option value="real-estate">Real Estate</option>
+                                        <option value="compliance">Compliance</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- PDF Upload Tab -->
+                        <div class="tab-pane fade" id="pdf-upload" role="tabpanel">
+                            <form id="pdfTemplateUploadForm">
+                                <div class="mb-3">
+                                    <label for="pdfTemplateName" class="form-label">Template Name *</label>
+                                    <input type="text" class="form-control" id="pdfTemplateName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pdfTemplateDescription" class="form-label">Template Description</label>
+                                    <textarea class="form-control" id="pdfTemplateDescription" rows="2" placeholder="Brief description of this template's purpose..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pdfFile" class="form-label">PDF Template File *</label>
+                                    <div class="pdf-upload-area" id="pdfUploadArea">
+                                        <div class="pdf-upload-content">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h5>Upload PDF Template</h5>
+                                            <p class="text-muted">Drag and drop your PDF file here, or click to browse</p>
+                                            <input type="file" id="pdfFile" accept=".pdf" class="d-none" required>
+                                            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('pdfFile').click()">
+                                                <i class="fas fa-file-upload me-2"></i>Choose PDF File
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-text">Maximum file size: 10MB. The PDF will be converted to a text template with editable variables.</div>
+                                </div>
+                                <div class="mb-3" id="pdfPreviewSection" style="display: none;">
+                                    <label class="form-label">Extracted Content Preview</label>
+                                    <div class="pdf-preview-content">
+                                        <textarea class="form-control" id="pdfExtractedContent" rows="8" readonly></textarea>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" id="editExtractedContent">
+                                                <i class="fas fa-edit me-1"></i>Edit Content
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-info" id="detectVariables">
+                                                <i class="fas fa-magic me-1"></i>Auto-Detect Variables
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pdfRequiredVariables" class="form-label">Required Variables</label>
+                                    <input type="text" class="form-control" id="pdfRequiredVariables" placeholder="CLIENT_NAME, CASE_DESCRIPTION, LAWYER_NAME, LAWYER_EMAIL, LAW_FIRM_NAME">
+                                    <div class="form-text">Comma-separated list of variables used in the template</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pdfTemplateCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="pdfTemplateCategory">
+                                        <option value="employment">Employment Law</option>
+                                        <option value="privacy">Privacy Law</option>
+                                        <option value="commercial">Commercial Law</option>
+                                        <option value="litigation">Litigation</option>
+                                        <option value="real-estate">Real Estate</option>
+                                        <option value="compliance">Compliance</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="uploadTemplateBtn">
+                        <i class="fas fa-upload me-2"></i>Upload Template
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let selectedTemplate = null;
+        let templates = [];
+        let recentDocuments = [];
+        let customTemplates = [];
+
+        // Load data on page load
+        window.addEventListener('load', function() {
+            loadTemplates();
+            loadClients();
+            loadRecentDocuments();
+            loadCustomTemplates();
+            updateStats();
+        });
+
+        // Load templates from API
+        async function loadTemplates() {
+            try {
+                const response = await fetch('/api/templates');
+                const data = await response.json();
+                
+                if (data.success) {
+                    templates = data.templates;
+                }
+            } catch (error) {
+                console.error('Error loading templates:', error);
+            }
+        }
+
+        // Load clients for document form
+        async function loadClients() {
+            try {
+                const response = await fetch('/api/clients');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const clientSelect = document.getElementById('documentClient');
+                    clientSelect.innerHTML = '<option value="">No client</option>';
+                    
+                    data.clients.forEach(client => {
+                        const option = document.createElement('option');
+                        option.value = client.name;
+                        option.textContent = client.name;
+                        clientSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading clients:', error);
+            }
+        }
+
+        // Load recent documents
+        async function loadRecentDocuments() {
+            try {
+                const response = await fetch('/api/documents');
+                const data = await response.json();
+                
+                if (data.success) {
+                    recentDocuments = data.documents;
+                    renderRecentDocuments();
+                }
+            } catch (error) {
+                console.error('Error loading documents:', error);
+            }
+        }
+
+        // Load custom templates
+        async function loadCustomTemplates() {
+            try {
+                const response = await fetch('/api/templates/custom');
+                const data = await response.json();
+                
+                if (data.success) {
+                    customTemplates = data.templates;
+                    renderCustomTemplates();
+                }
+            } catch (error) {
+                console.error('Error loading custom templates:', error);
+                // If API doesn't exist yet, show sample data
+                customTemplates = getSampleCustomTemplates();
+                renderCustomTemplates();
+            }
+        }
+
+        // Render custom templates
+        function renderCustomTemplates() {
+            const customTemplatesList = document.getElementById('customTemplatesList');
+            
+            if (customTemplates.length === 0) {
+                customTemplatesList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>No Custom Templates</h4>
+                        <p>Upload your first custom template to get started.</p>
+                        <button class="btn btn-primary" onclick="showUploadTemplateModal()">
+                            <i class="fas fa-plus me-2"></i>Add Template
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            customTemplatesList.innerHTML = customTemplates.map(template => `
+                <div class="template-card ${template.category.toLowerCase().replace(' ', '-')}">
+                    <div class="template-header">
+                        <h5 class="template-title">${template.name}</h5>
+                        <span class="template-type-badge ${template.type || 'text'}">${template.type || 'text'}</span>
+                    </div>
+                    <p class="template-description">${template.description || 'No description provided'}</p>
+                    <div class="template-meta">
+                        <span><i class="fas fa-calendar me-1"></i>Created: ${formatDate(template.created_at)}</span>
+                        <span><i class="fas fa-tag me-1"></i>${template.category}</span>
+                    </div>
+                    ${template.variables ? `<div class="template-variables mb-3"><strong>Variables:</strong> ${template.variables}</div>` : ''}
+                    <div class="template-actions">
+                        <button class="btn btn-sm btn-outline-warning" onclick="editCustomTemplate('${template.id}')">
+                            <i class="fas fa-edit me-1"></i>Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary" onclick="useCustomTemplate('${template.id}')">
+                            <i class="fas fa-play me-1"></i>Use
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCustomTemplate('${template.id}')">
+                            <i class="fas fa-trash me-1"></i>Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render recent documents
+        function renderRecentDocuments() {
+            const documentsList = document.getElementById('recentDocumentsList');
+            
+            if (recentDocuments.length === 0) {
+                documentsList.innerHTML = '<p class="text-muted">No recent documents</p>';
+                return;
+            }
+
+            const sortedDocuments = recentDocuments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            
+            documentsList.innerHTML = sortedDocuments.slice(0, 5).map(doc => `
+                <div class="document-item">
+                    <div class="document-info">
+                        <div class="document-title">${doc.title}</div>
+                        <div class="document-meta">
+                            ${doc.template_name} • Generated on ${formatDate(doc.created_at)} • ${doc.client || 'No client'}
+                        </div>
+                    </div>
+                    <div class="document-actions">
+                        <button class="document-action-btn view" onclick="viewDocument('${doc.id}')">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="document-action-btn download" onclick="downloadDocument('${doc.id}')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <button class="document-action-btn edit" onclick="editDocument('${doc.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show template details
+        function showTemplateDetails(templateName) {
+            selectedTemplate = templateName;
+            
+            const template = templates[templateName] || getDefaultTemplate(templateName);
+            
+            document.getElementById('templateDetailsTitle').textContent = template.title;
+            document.getElementById('templateDetailsBody').innerHTML = `
+                <div class="template-preview">
+                    <div class="preview-title">Template Preview</div>
+                    <div class="preview-content">${template.description}</div>
+                </div>
+                <div class="template-preview">
+                    <div class="preview-title">Required Variables</div>
+                    <div class="preview-content">
+                        ${template.variables.map(variable => `• ${variable}`).join('<br>')}
+                    </div>
+                </div>
+                <div class="template-preview">
+                    <div class="preview-title">Usage Instructions</div>
+                    <div class="preview-content">
+                        This template is designed for ${template.category} purposes. Fill in the required variables to generate a customized document.
+                    </div>
+                </div>
+            `;
+            
+            const modal = new bootstrap.Modal(document.getElementById('templateDetailsModal'));
+            modal.show();
+        }
+
+        // Generate document from template details
+        function generateDocument() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('templateDetailsModal'));
+            modal.hide();
+            
+            // Pre-fill the template in the generation form
+            document.getElementById('documentTemplate').value = selectedTemplate;
+            
+            const generationModal = new bootstrap.Modal(document.getElementById('generateDocumentModal'));
+            generationModal.show();
+        }
+
+        // Show template modal
+        function showTemplateModal() {
+            const modal = new bootstrap.Modal(document.getElementById('generateDocumentModal'));
+            modal.show();
+        }
+
+        // Generate document from form
+        async function generateDocumentFromForm() {
+            const formData = {
+                template_name: document.getElementById('documentTemplate').value,
+                client: document.getElementById('documentClient').value,
+                title: document.getElementById('documentTitle').value,
+                company_name: document.getElementById('companyName').value,
+                contact_person: document.getElementById('contactPerson').value,
+                contact_email: document.getElementById('contactEmail').value,
+                company_address: document.getElementById('companyAddress').value,
+                additional_notes: document.getElementById('additionalNotes').value
+            };
+
+            try {
+                const response = await fetch(`/api/templates/${formData.template_name}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Close modal and reset form
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('generateDocumentModal'));
+                    modal.hide();
+                    document.getElementById('generateDocumentForm').reset();
+                    
+                    // Show success message and download link
+                    alert('Document generated successfully!');
+                    
+                    // Add to recent documents
+                    recentDocuments.unshift({
+                        id: Date.now(),
+                        title: formData.title || `${formData.template_name} Document`,
+                        template_name: formData.template_name,
+                        client: formData.client,
+                        created_at: new Date().toISOString()
+                    });
+                    renderRecentDocuments();
+                    updateStats();
+                    
+                } else {
+                    alert('Failed to generate document: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error generating document: ' + error.message);
+            }
+        }
+
+        // Quick action functions
+        function generateEmploymentContract() {
+            document.getElementById('documentTemplate').value = 'employment_contract';
+            showTemplateModal();
+        }
+
+        function generateGDPRPolicy() {
+            document.getElementById('documentTemplate').value = 'gdpr_privacy_policy';
+            showTemplateModal();
+        }
+
+        function generateCommercialContract() {
+            document.getElementById('documentTemplate').value = 'commercial_contract';
+            showTemplateModal();
+        }
+
+        function generateLegalLetter() {
+            document.getElementById('documentTemplate').value = 'legal_letter';
+            showTemplateModal();
+        }
+
+        function generateComplianceReport() {
+            document.getElementById('documentTemplate').value = 'compliance_report';
+            showTemplateModal();
+        }
+
+        // Document action functions
+        function viewDocument(docId) {
+            alert(`Viewing document ${docId} - This would open the document in a viewer`);
+        }
+
+        function downloadDocument(docId) {
+            alert(`Downloading document ${docId} - This would trigger a file download`);
+        }
+
+        function editDocument(docId) {
+            alert(`Editing document ${docId} - This would open the document in edit mode`);
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalTemplates = (Object.keys(templates).length || 12) + customTemplates.length;
+            document.getElementById('totalTemplates').textContent = totalTemplates;
+            document.getElementById('generatedDocs').textContent = recentDocuments.length || 25;
+            document.getElementById('activeClients').textContent = '4';
+        }
+
+        // Utility functions
+        function getDefaultTemplate(templateName) {
+            const defaults = {
+                'employment_contract': {
+                    title: 'Employment Contract',
+                    description: 'A comprehensive employment agreement template compliant with Belgian labor law.',
+                    category: 'Employment Law',
+                    variables: ['Company Name', 'Employee Name', 'Position', 'Start Date', 'Salary', 'Work Location']
+                },
+                'gdpr_privacy_policy': {
+                    title: 'GDPR Privacy Policy',
+                    description: 'Data protection policy template compliant with GDPR requirements.',
+                    category: 'Privacy Law',
+                    variables: ['Company Name', 'Data Controller', 'Contact Email', 'Website URL', 'Data Processing Activities']
+                },
+                'commercial_contract': {
+                    title: 'Commercial Contract',
+                    description: 'Business agreement template for commercial transactions.',
+                    category: 'Commercial Law',
+                    variables: ['Company A', 'Company B', 'Service Description', 'Payment Terms', 'Contract Duration']
+                },
+                'legal_letter': {
+                    title: 'Legal Letter',
+                    description: 'Professional legal correspondence template.',
+                    category: 'Litigation',
+                    variables: ['Recipient Name', 'Subject Matter', 'Legal Basis', 'Requested Action', 'Deadline']
+                },
+                'real_estate_contract': {
+                    title: 'Real Estate Contract',
+                    description: 'Property transaction agreement template.',
+                    category: 'Real Estate',
+                    variables: ['Property Address', 'Buyer Name', 'Seller Name', 'Purchase Price', 'Closing Date']
+                },
+                'compliance_report': {
+                    title: 'Compliance Report',
+                    description: 'Regulatory compliance assessment template.',
+                    category: 'Compliance',
+                    variables: ['Company Name', 'Regulation Type', 'Assessment Period', 'Findings', 'Recommendations']
+                }
+            };
+            return defaults[templateName] || defaults['legal_letter'];
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Auto-refresh data every 30 seconds
+        setInterval(loadRecentDocuments, 30000);
+
+        // Show Upload Template Modal
+        function showUploadTemplateModal() {
+            const modal = new bootstrap.Modal(document.getElementById('templateUploadModal'));
+            modal.show();
+        }
+
+        // Upload Custom Template
+        async function uploadCustomTemplate() {
+            const formData = {
+                name: document.getElementById('uploadTemplateName').value,
+                description: document.getElementById('uploadTemplateDescription').value,
+                content: document.getElementById('uploadTemplateContent').value,
+                variables: document.getElementById('uploadTemplateVariables').value.split(',').map(v => v.trim()).filter(v => v),
+                category: document.getElementById('uploadTemplateCategory').value
+            };
+
+            try {
+                const response = await fetch('/api/templates/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Close modal and reset form
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('uploadTemplateModal'));
+                    modal.hide();
+                    document.getElementById('uploadTemplateForm').reset();
+                    
+                    // Add to custom templates
+                    customTemplates.unshift({
+                        id: Date.now(),
+                        name: formData.name,
+                        description: formData.description,
+                        category: formData.category,
+                        created_at: new Date().toISOString()
+                    });
+                    renderCustomTemplates();
+                    updateStats();
+                    
+                    alert('Template uploaded successfully!');
+                } else {
+                    alert('Failed to upload template: ' + data.message);
+                }
+            } catch (error) {
+                // For demo purposes, add template locally
+                customTemplates.unshift({
+                    id: Date.now(),
+                    name: formData.name,
+                    description: formData.description,
+                    category: formData.category,
+                    created_at: new Date().toISOString()
+                });
+                renderCustomTemplates();
+                updateStats();
+                
+                const modal = bootstrap.Modal.getInstance(document.getElementById('uploadTemplateModal'));
+                modal.hide();
+                document.getElementById('uploadTemplateForm').reset();
+                
+                alert('Template uploaded successfully! (Demo mode)');
+            }
+        }
+
+        // Custom template action functions
+        function editCustomTemplate(templateId) {
+            const template = customTemplates.find(t => t.id == templateId);
+            if (template) {
+                alert(`Editing template: ${template.name}\n\nThis would open the template editor with the current content.`);
+            }
+        }
+
+        function useCustomTemplate(templateId) {
+            const template = customTemplates.find(t => t.id == templateId);
+            if (template) {
+                alert(`Using template: ${template.name}\n\nThis would open the document generation form with this template pre-selected.`);
+            }
+        }
+
+        function deleteCustomTemplate(templateId) {
+            const template = customTemplates.find(t => t.id == templateId);
+            if (template && confirm(`Are you sure you want to delete "${template.name}"?`)) {
+                customTemplates = customTemplates.filter(t => t.id != templateId);
+                renderCustomTemplates();
+                updateStats();
+                alert('Template deleted successfully!');
+            }
+        }
+
+        // Get sample custom templates for demo
+        function getSampleCustomTemplates() {
+            return [
+                {
+                    id: 1,
+                    name: "Custom Employment Agreement",
+                    description: "Specialized employment contract for tech companies with non-compete clauses",
+                    category: "Employment Law",
+                    type: "text",
+                    variables: "EMPLOYEE_NAME, COMPANY_NAME, POSITION, SALARY, START_DATE, NON_COMPETE_DURATION",
+                    created_at: "2024-01-10T10:30:00Z"
+                },
+                {
+                    id: 2,
+                    name: "Data Processing Agreement",
+                    description: "GDPR-compliant data processing contract for EU operations",
+                    category: "Privacy Law",
+                    type: "pdf",
+                    variables: "DATA_CONTROLLER, DATA_PROCESSOR, PROCESSING_PURPOSE, DATA_CATEGORIES, RETENTION_PERIOD",
+                    created_at: "2024-01-08T14:15:00Z"
+                },
+                {
+                    id: 3,
+                    name: "Commercial Lease Agreement",
+                    description: "Standard commercial property lease with customizable terms",
+                    category: "Real Estate",
+                    type: "text",
+                    variables: "TENANT_NAME, LANDLORD_NAME, PROPERTY_ADDRESS, LEASE_TERM, MONTHLY_RENT, SECURITY_DEPOSIT",
+                    created_at: "2024-01-05T09:20:00Z"
+                }
+            ];
+        }
+    </script>
+    <script src="static/js/templates.js"></script>
+</body>
+</html> 

@@ -1,0 +1,49 @@
+{
+  "summary": {
+    "total_legal_codes": 40,
+    "pdf_files_to_download": 40,
+    "failed_checks": 0,
+    "success_rate": "100.0%"
+  },
+  "storage_requirements": {
+    "pdf_files": {
+      "size": 71868440,
+      "formatted_size": "68.5 MB"
+    },
+    "processing_overhead": {
+      "extracted_text": 7186844,
+      "search_indexes": 1437368,
+      "database": 718684,
+      "metadata": 359342,
+      "total_overhead": 9702238
+    },
+    "total_storage_needed": {
+      "size": 81570678,
+      "formatted_size": "77.8 MB"
+    }
+  },
+  "category_breakdown": {
+    "federal": {
+      "count": 17,
+      "size": 30784717
+    },
+    "regional": {
+      "count": 19,
+      "size": 32927885
+    },
+    "community": {
+      "count": 4,
+      "size": 8155838
+    }
+  },
+  "time_estimates": {
+    "download_time_minutes": 0,
+    "processing_time_minutes": 0,
+    "total_time_minutes": 1
+  },
+  "recommendations": {
+    "minimum_disk_space": "116.7 MB",
+    "recommended_connection": "10 Mbps or higher",
+    "estimated_total_time": "1 minutes"
+  }
+}

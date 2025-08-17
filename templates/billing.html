@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Billing') }} - {{ _('LawyerAgent') }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="card-title">
+                            <i class="fas fa-euro-sign text-primary me-3"></i>
+                            {{ _('Billing & Invoicing') }}
+                        </h1>
+                        <p class="card-text">
+                            {{ _('Manage your legal billing, invoices, and revenue tracking') }}
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createInvoiceModal">
+                        <i class="fas fa-plus me-2"></i>{{ _('Create Invoice') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Billing Statistics -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-euro-sign text-success"></i>
+                </div>
+                <h4 class="text-success">€{{ stats.monthly_revenue }}</h4>
+                <p class="card-text">{{ _('Monthly Revenue') }}</p>
+                <small class="text-success">↑ +12% {{ _('from last month') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-clock text-warning"></i>
+                </div>
+                <h4 class="text-warning">€{{ stats.pending_amount }}</h4>
+                <p class="card-text">{{ _('Pending Amount') }}</p>
+                <small class="text-warning">{{ _('Awaiting payment') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
+                <h4 class="text-danger">€{{ stats.overdue_amount }}</h4>
+                <p class="card-text">{{ _('Overdue Amount') }}</p>
+                <small class="text-danger">{{ _('Past due date') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-users text-info"></i>
+                </div>
+                <h4 class="text-info">{{ stats.total_clients }}</h4>
+                <p class="card-text">{{ _('Active Clients') }}</p>
+                <small class="text-info">↑ +1 {{ _('this week') }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Revenue Chart -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>{{ _('Revenue Trend') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" width="400" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invoices List -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-file-invoice me-2"></i>{{ _('Recent Invoices') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ _('Invoice #') }}</th>
+                                <th>{{ _('Client') }}</th>
+                                <th>{{ _('Description') }}</th>
+                                <th>{{ _('Amount') }}</th>
+                                <th>{{ _('Status') }}</th>
+                                <th>{{ _('Date') }}</th>
+                                <th>{{ _('Due Date') }}</th>
+                                <th>{{ _('Actions') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                            <tr>
+                                <td>
+                                    <strong>{{ invoice.id }}</strong>
+                                </td>
+                                <td>{{ invoice.client }}</td>
+                                <td>{{ invoice.description }}</td>
+                                <td>
+                                    <strong>€{{ invoice.amount }}</strong>
+                                </td>
+                                <td>
+                                    {% if invoice.status == 'paid' %}
+                                        <span class="badge bg-success">{{ _('Paid') }}</span>
+                                    {% elif invoice.status == 'pending' %}
+                                        <span class="badge bg-warning">{{ _('Pending') }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ _('Draft') }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ invoice.date }}</td>
+                                <td>
+                                    <span class="{{ 'text-danger' if invoice.status == 'pending' and invoice.due_date < '2024-01-25' else '' }}">
+                                        {{ invoice.due_date }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-outline-primary" title="{{ _('View') }}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary" title="{{ _('Edit') }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-success" title="{{ _('Download') }}">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-info" title="{{ _('Send') }}">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Invoice Modal -->
+<div class="modal fade" id="createInvoiceModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ _('Create New Invoice') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createInvoiceForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="invoiceClient" class="form-label">{{ _('Client') }}</label>
+                            <select class="form-select" id="invoiceClient" required>
+                                <option value="">{{ _('Select Client') }}</option>
+                                <option value="Maître Jean Dupont">Maître Jean Dupont</option>
+                                <option value="Me. Marie Dubois">Me. Marie Dubois</option>
+                                <option value="Adv. Pierre Martin">Adv. Pierre Martin</option>
+                                <option value="Mevr. Sophie Leroy">Mevr. Sophie Leroy</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="invoiceDate" class="form-label">{{ _('Invoice Date') }}</label>
+                            <input type="date" class="form-control" id="invoiceDate" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="invoiceDueDate" class="form-label">{{ _('Due Date') }}</label>
+                            <input type="date" class="form-control" id="invoiceDueDate" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="invoiceCurrency" class="form-label">{{ _('Currency') }}</label>
+                            <select class="form-select" id="invoiceCurrency" required>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="USD">USD ($)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="invoiceDescription" class="form-label">{{ _('Description') }}</label>
+                        <textarea class="form-control" id="invoiceDescription" rows="3" placeholder="{{ _('Legal services provided...') }}"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">{{ _('Invoice Items') }}</label>
+                        <div id="invoiceItems">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="{{ _('Item description') }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" placeholder="{{ _('Hours') }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" placeholder="{{ _('Rate') }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" placeholder="{{ _('Amount') }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addInvoiceItem()">
+                            <i class="fas fa-plus me-1"></i>{{ _('Add Item') }}
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-6">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ _('Subtotal:') }}</strong>
+                                <span id="subtotal">€0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ _('VAT (21%):') }}</strong>
+                                <span id="vat">€0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ _('Total:') }}</strong>
+                                <span id="total">€0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cancel') }}</button>
+                <button type="button" class="btn btn-primary" onclick="createInvoice()">{{ _('Create Invoice') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize revenue chart
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['{{ _("Oct") }}', '{{ _("Nov") }}', '{{ _("Dec") }}', '{{ _("Jan") }}'],
+            datasets: [{
+                label: '{{ _("Monthly Revenue") }}',
+                data: [1800, 2100, 1950, 2275],
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '€' + value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Set default dates
+    const today = new Date();
+    const dueDate = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 days from now
+    
+    document.getElementById('invoiceDate').value = today.toISOString().split('T')[0];
+    document.getElementById('invoiceDueDate').value = dueDate.toISOString().split('T')[0];
+});
+
+function addInvoiceItem() {
+    const container = document.getElementById('invoiceItems');
+    const newItem = document.createElement('div');
+    newItem.className = 'row mb-2';
+    newItem.innerHTML = `
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="{{ _('Item description') }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" placeholder="{{ _('Hours') }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" placeholder="{{ _('Rate') }}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="{{ _('Amount') }}" readonly>
+        </div>
+    `;
+    container.appendChild(newItem);
+}
+
+function createInvoice() {
+    const form = document.getElementById('createInvoiceForm');
+    const formData = new FormData(form);
+    
+    // This would normally send to the API
+    alert('{{ _("Invoice created successfully!") }}');
+    $('#createInvoiceModal').modal('hide');
+    form.reset();
+}
+</script>
+{% endblock %} 

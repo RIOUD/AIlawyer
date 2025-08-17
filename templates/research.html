@@ -1,0 +1,651 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Research') }} - {{ _('LawyerAgent') }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">
+                    <i class="fas fa-search text-primary me-3"></i>
+                    {{ _('Legal Research') }}
+                </h1>
+                <p class="card-text">
+                    {{ _('Access Belgian legal databases and conduct comprehensive legal research') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Interface -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" placeholder="{{ _('Search legal documents, cases, regulations...') }}" id="researchQuery">
+                            <button class="btn btn-primary btn-lg" type="button" onclick="performResearch()">
+                                <i class="fas fa-search me-2"></i>{{ _('Search') }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select form-select-lg" id="databaseSelect">
+                            <option value="all">{{ _('All Databases') }}</option>
+                            <option value="belgian_official_gazette">{{ _('Belgian Official Gazette') }}</option>
+                            <option value="court_cassation">{{ _('Court of Cassation') }}</option>
+                            <option value="constitutional_court">{{ _('Constitutional Court') }}</option>
+                            <option value="eu_legal">{{ _('EU Legal Database') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="d-flex gap-2 flex-wrap">
+                            <span class="badge bg-light text-dark">{{ _('Quick Searches:') }}</span>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('employment law')">{{ _('Employment Law') }}</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('commercial contracts')">{{ _('Commercial Contracts') }}</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('privacy regulations')">{{ _('Privacy Regulations') }}</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('tax law')">{{ _('Tax Law') }}</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('civil procedure')">{{ _('Civil Procedure') }}</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="quickSearch('criminal law')">{{ _('Criminal Law') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Offline Legal Knowledge Base Status -->
+            {% if data.offline_available %}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-database me-2"></i>{{ _('Offline Legal Knowledge Base') }}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-success">{{ _('Status: Available') }}</h6>
+                                    {% if data.offline_stats %}
+                                    <p class="mb-2">
+                                        <strong>{{ _('Total Legal Codes') }}:</strong> {{ data.offline_stats.total_codes or 0 }}<br>
+                                        <strong>{{ _('Categories') }}:</strong> {{ data.offline_stats.categories|length or 0 }}<br>
+                                        <strong>{{ _('Topics') }}:</strong> {{ data.offline_stats.topics|length or 0 }}<br>
+                                        <strong>{{ _('Articles') }}:</strong> {{ data.offline_stats.total_articles or 0 }}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-success me-2" onclick="performOfflineSearch()">
+                                        <i class="fas fa-search me-1"></i>{{ _('Offline Search') }}
+                                    </button>
+                                    <button class="btn btn-outline-info" onclick="showOfflineStats()">
+                                        <i class="fas fa-chart-bar me-1"></i>{{ _('Statistics') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">
+                                <i class="fas fa-exclamation-triangle me-2"></i>{{ _('Offline Legal Knowledge Base') }}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-2">{{ _('Offline knowledge base not available. Only online sources accessible.') }}</p>
+                            <button class="btn btn-warning" onclick="downloadOfflineKnowledge()">
+                                <i class="fas fa-download me-1"></i>{{ _('Download Knowledge Base') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Official Belgian Legal Codes -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-gavel me-2"></i>{{ _('Official Belgian Legal Codes') }}
+                            </h5>
+                            <small class="text-muted">{{ _('Source: Justel Database - Federal Public Service Justice') }}</small>
+                        </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6 class="text-primary">{{ _('Federal Legal Codes') }}</h6>
+                        {% for code in data.belgian_legal_codes if code.category == 'Federal' %}
+                        <div class="card mb-2">
+                            <div class="card-body p-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">{{ code.name }}</h6>
+                                        <small class="text-muted">
+                                            {{ code.english }} / {{ code.french }} / {{ code.german }}
+                                        </small>
+                                        <br><small class="text-info">{{ _('Last updated') }}: {{ code.last_updated }}</small>
+                                    </div>
+                                    <div>
+                                        <a href="{{ code.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-external-link-alt me-1"></i>{{ _('Access') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6 class="text-success">{{ _('Regional & Community Codes') }}</h6>
+                        {% for code in data.belgian_legal_codes if code.category == 'Regional' %}
+                        <div class="card mb-2">
+                            <div class="card-body p-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">{{ code.name }}</h6>
+                                        <small class="text-muted">
+                                            {{ code.english }} / {{ code.french }} / {{ code.german }}
+                                        </small>
+                                        <br><small class="text-info">{{ _('Last updated') }}: {{ code.last_updated }}</small>
+                                    </div>
+                                    <div>
+                                        <a href="{{ code.url }}" target="_blank" class="btn btn-sm btn-outline-success">
+                                            <i class="fas fa-external-link-alt me-1"></i>{{ _('Access') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Legal Databases -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>{{ _('Legal Databases') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for database in data.legal_databases %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title">{{ database }}</h6>
+                                        <p class="card-text text-muted">{{ _('Official legal database') }}</p>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-success">{{ _('Online') }}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="fas fa-search me-1"></i>{{ _('Search') }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-external-link-alt me-1"></i>{{ _('Browse') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Searches -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>{{ _('Recent Searches') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    {% for search in data.recent_searches %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-search text-muted me-2"></i>
+                            {{ search }}
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="repeatSearch('{{ search }}')">
+                            {{ _('Repeat') }}
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Saved Research -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-bookmark me-2"></i>{{ _('Saved Research') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    {% for research in data.saved_research %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">{{ research.title }}</h6>
+                            <small class="text-muted">{{ research.date }} - {{ research.results }} {{ _('results') }}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Research Results (Hidden by default) -->
+<div class="row" id="researchResults" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>{{ _('Search Results') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="resultsContent">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Practice Areas -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-briefcase me-2"></i>{{ _('Legal Practice Areas') }}
+                </h5>
+                <small class="text-muted">{{ _('Multi-language legal practice areas for Belgian market') }}</small>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for area in data.practice_areas %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ area }}</h6>
+                                <div class="mt-2">
+                                    <button class="btn btn-sm btn-outline-info me-1" onclick="searchPracticeArea('{{ area.split(' / ')[0] }}')">
+                                        <i class="fas fa-search me-1"></i>{{ _('Search') }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary me-1">
+                                        <i class="fas fa-book me-1"></i>{{ _('Resources') }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-star me-1"></i>{{ _('Follow') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Research Tools -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-tools me-2"></i>{{ _('Research Tools') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-gavel text-primary mb-2" style="font-size: 2rem;"></i>
+                                <h6>{{ _('Case Law') }}</h6>
+                                <p class="text-muted">{{ _('Search court decisions') }}</p>
+                                <button class="btn btn-sm btn-primary">{{ _('Access') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-book text-success mb-2" style="font-size: 2rem;"></i>
+                                <h6>{{ _('Legislation') }}</h6>
+                                <p class="text-muted">{{ _('Search laws and regulations') }}</p>
+                                <button class="btn btn-sm btn-success">{{ _('Access') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-newspaper text-warning mb-2" style="font-size: 2rem;"></i>
+                                <h6>{{ _('Legal News') }}</h6>
+                                <p class="text-muted">{{ _('Latest legal updates') }}</p>
+                                <button class="btn btn-sm btn-warning">{{ _('Access') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <i class="fas fa-calculator text-info mb-2" style="font-size: 2rem;"></i>
+                                <h6>{{ _('Legal Calculator') }}</h6>
+                                <p class="text-muted">{{ _('Calculate legal deadlines') }}</p>
+                                <button class="btn btn-sm btn-info">{{ _('Access') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function performResearch() {
+    const query = document.getElementById('researchQuery').value;
+    const database = document.getElementById('databaseSelect').value;
+    
+    if (!query.trim()) {
+        alert('{{ _("Please enter a search query") }}');
+        return;
+    }
+    
+    // Show loading state
+    document.getElementById('researchResults').style.display = 'block';
+    document.getElementById('resultsContent').innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> {{ _("Searching...") }}</div>';
+    
+    // Simulate search results
+    setTimeout(() => {
+        const results = generateMockResults(query, database);
+        document.getElementById('resultsContent').innerHTML = results;
+    }, 2000);
+}
+
+function quickSearch(query) {
+    document.getElementById('researchQuery').value = query;
+    performResearch();
+}
+
+function repeatSearch(query) {
+    document.getElementById('researchQuery').value = query;
+    performResearch();
+}
+
+function searchPracticeArea(area) {
+    document.getElementById('researchQuery').value = area;
+    performResearch();
+}
+
+function generateMockResults(query, database) {
+    const mockResults = [
+        {
+            title: `Belgian Employment Law - ${query}`,
+            source: 'Belgian Official Gazette',
+            date: '2024-01-15',
+            relevance: 0.95,
+            excerpt: 'This document contains relevant information about Belgian employment law regulations...'
+        },
+        {
+            title: `Court Decision: ${query} Case`,
+            source: 'Court of Cassation',
+            date: '2024-01-10',
+            relevance: 0.87,
+            excerpt: 'The Court of Cassation ruled on matters related to the search query...'
+        },
+        {
+            title: `EU Regulation: ${query}`,
+            source: 'EU Legal Database',
+            date: '2024-01-05',
+            relevance: 0.82,
+            excerpt: 'European Union regulations pertaining to the search terms...'
+        }
+    ];
+    
+    let html = '<div class="mb-3"><strong>{{ _("Found") }} ' + mockResults.length + ' {{ _("results for") }} "' + query + '"</strong></div>';
+    
+    mockResults.forEach((result, index) => {
+        html += `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="card-title">
+                                <a href="#" class="text-decoration-none">${result.title}</a>
+                            </h6>
+                            <p class="card-text text-muted">${result.excerpt}</p>
+                            <div class="d-flex gap-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-database me-1"></i>${result.source}
+                                </small>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>${result.date}
+                                </small>
+                                <small class="text-success">
+                                    <i class="fas fa-percentage me-1"></i>${Math.round(result.relevance * 100)}% {{ _("relevance") }}
+                                </small>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <button class="btn btn-sm btn-outline-primary me-1" title="{{ _('View') }}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary me-1" title="{{ _('Download') }}">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-warning" title="{{ _('Save') }}">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    return html;
+}
+
+// Handle Enter key in search input
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('researchQuery').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performResearch();
+        }
+    });
+});
+
+// Offline Legal Knowledge Base Functions
+function performOfflineSearch() {
+    const query = document.getElementById('researchQuery').value.trim();
+    if (!query) {
+        alert('{{ _("Please enter a search query") }}');
+        return;
+    }
+
+    // Show loading
+    const resultsDiv = document.getElementById('researchResults');
+    resultsDiv.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> {{ _("Searching offline knowledge base...") }}</div>';
+
+    fetch('/api/legal/offline-search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: query })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            resultsDiv.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+            return;
+        }
+
+        displayOfflineResults(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        resultsDiv.innerHTML = '<div class="alert alert-danger">{{ _("Search failed. Please try again.") }}</div>';
+    });
+}
+
+function displayOfflineResults(data) {
+    const resultsDiv = document.getElementById('researchResults');
+    
+    if (data.results.length === 0) {
+        resultsDiv.innerHTML = '<div class="alert alert-info">{{ _("No results found in offline knowledge base.") }}</div>';
+        return;
+    }
+
+    let html = `
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>{{ _('Offline Search Results') }}
+                </h5>
+                <small class="text-muted">${data.total_results} {{ _('results found') }}</small>
+            </div>
+            <div class="card-body">
+    `;
+
+    data.results.forEach(result => {
+        html += `
+            <div class="border-bottom pb-3 mb-3">
+                <h6 class="text-primary">${result.name}</h6>
+                <span class="badge bg-secondary me-2">${result.category}</span>
+                <span class="badge bg-info">Score: ${result.score}</span>
+                <p class="mt-2">${result.summary}</p>
+                ${result.topics.length > 0 ? `<p><strong>{{ _('Topics') }}:</strong> ${result.topics.join(', ')}</p>` : ''}
+                ${result.url ? `<a href="${result.url}" target="_blank" class="btn btn-sm btn-outline-primary me-2">{{ _('View Online') }}</a>` : ''}
+                ${result.pdf_url ? `<a href="${result.pdf_url}" target="_blank" class="btn btn-sm btn-outline-success">{{ _('Download PDF') }}</a>` : ''}
+            </div>
+        `;
+    });
+
+    html += '</div></div>';
+    resultsDiv.innerHTML = html;
+}
+
+function showOfflineStats() {
+    fetch('/api/legal/offline-stats')
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        const statsHtml = `
+            <div class="modal fade" id="offlineStatsModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ _('Offline Knowledge Base Statistics') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>{{ _('Overview') }}</h6>
+                                    <p><strong>{{ _('Total Codes') }}:</strong> ${data.total_codes || 0}</p>
+                                    <p><strong>{{ _('Categories') }}:</strong> ${Object.keys(data.categories || {}).length}</p>
+                                    <p><strong>{{ _('Topics') }}:</strong> ${(data.topics || []).length}</p>
+                                    <p><strong>{{ _('Articles') }}:</strong> ${data.total_articles || 0}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>{{ _('Categories') }}</h6>
+                                    ${Object.entries(data.categories || {}).map(([category, count]) => 
+                                        `<p><strong>${category}:</strong> ${count}</p>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Remove existing modal if any
+        const existingModal = document.getElementById('offlineStatsModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        // Add new modal
+        document.body.insertAdjacentHTML('beforeend', statsHtml);
+        
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('offlineStatsModal'));
+        modal.show();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('{{ _("Failed to load statistics") }}');
+    });
+}
+
+function downloadOfflineKnowledge() {
+    if (confirm('{{ _("This will download the complete Belgian legal knowledge base. This may take several minutes. Continue?") }}')) {
+        // This would trigger the download process
+        alert('{{ _("Download process started. Check the console for progress.") }}');
+        // In a real implementation, this would call the downloader script
+    }
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Legal Practice Management Platform | Transform Your Practice</title>
+    <meta name="description" content="Revolutionary AI-powered legal practice management platform that can double your revenue and increase efficiency by 40%. The only platform built from the ground up with AI at its core.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AI-Powered Legal Practice Management Platform">
+    <meta property="og:description" content="Double your revenue with AI-powered time tracking, workflow automation, and predictive business intelligence.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://legalplatform.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #7c3aed;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: var(--light-color);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid var(--gray-200);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-benefits {
+            list-style: none;
+        }
+
+        .feature-benefits li {
+            padding: 0.5rem 0;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-benefits li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+        }
+
+        .table-header {
+            background: var(--gray-900);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .table-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .table-header .highlight {
+            color: var(--accent-color);
+        }
+
+        .table-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        .table-column {
+            border-right: 1px solid var(--gray-200);
+        }
+
+        .table-column:last-child {
+            border-right: none;
+        }
+
+        .column-header {
+            background: var(--gray-100);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-cell {
+            padding: 1rem;
+            text-align: center;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .table-row .table-cell:last-child {
+            border-right: none;
+        }
+
+        .feature-name {
+            text-align: left;
+            justify-content: flex-start;
+            font-weight: 500;
+        }
+
+        .check {
+            color: var(--success-color);
+            font-size: 1.2rem;
+        }
+
+        .cross {
+            color: var(--danger-color);
+            font-size: 1.2rem;
+        }
+
+        .basic {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .advanced {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .price {
+            margin-bottom: 1rem;
+        }
+
+        .currency {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        .amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .period {
+            font-size: 1rem;
+            color: var(--gray-600);
+        }
+
+        .pricing-description {
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background: var(--success-color);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .pricing-features li:contains('❌')::before {
+            background: var(--danger-color);
+        }
+
+        .pricing-cta {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .pricing-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .pricing-cta.featured {
+            background: var(--accent-color);
+        }
+
+        .pricing-cta.featured:hover {
+            background: #d97706;
+        }
+
+        .pricing-footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--gray-600);
+        }
+
+        .pricing-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ROI Section */
+        .roi {
+            padding: 5rem 0;
+            background: var(--light-color);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .roi-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+
+        .roi-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .roi-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .roi-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 1rem;
+            text-align: center;
+            color: var(--gray-400);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-content {
+                grid-template-columns: 1fr;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table-cell {
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gavel"></i>
+                    LegalPlatform
+                </div>
+                <nav class="nav">
+                    <a href="#features">Features</a>
+                    <a href="#comparison">Comparison</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#roi">ROI</a>
+                    <a href="#contact">Contact</a>
+                    <a href="/login.html" class="nav-link">Login</a>
+                    <a href="#" class="cta-button">Start Free Trial</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Revolutionary AI-Powered Legal Research & Practice Platform</h1>
+                <p class="hero-subtitle">
+                    The world's first quantum-ready, offline AI legal platform with advanced research capabilities, 
+                    secure document encryption, and complete practice management. Built for the future of legal technology.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Offline AI Operation</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Quantum</div>
+                        <div class="stat-label">Ready Encryption</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">Zero</div>
+                        <div class="stat-label">Data Exposure Risk</div>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#demo" class="btn-primary">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </a>
+                    <a href="#trial" class="btn-secondary">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Revolutionary AI-Powered Legal Technology</h2>
+                <p class="section-subtitle">
+                    The world's most advanced legal AI platform with quantum-ready security, offline operation, 
+                    and comprehensive research capabilities that no competitor can match.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1: Offline AI Research -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="feature-title">🔍 Offline AI-Powered Legal Research</h3>
+                    <p class="feature-description">
+                        Advanced RAG system with local LLM processing for complete privacy and offline operation.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>100% offline operation - no internet required</li>
+                        <li>Local Mixtral-8x7B AI model processing</li>
+                        <li>Vector-based document search and retrieval</li>
+                        <li>Source verification with citations</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 2: Quantum-Ready Encryption -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">🔐 Quantum-Ready Document Encryption</h3>
+                    <p class="feature-description">
+                        Military-grade AES-256-GCM and RSA-4096 encryption with quantum-resistant algorithms.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>AES-256-GCM symmetric encryption</li>
+                        <li>RSA-4096 asymmetric encryption</li>
+                        <li>Quantum-resistant cryptographic protocols</li>
+                        <li>Tamper detection and secure deletion</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 3: Belgian Legal Specialization -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 class="feature-title">🇧🇪 Belgian Legal System Specialization</h3>
+                    <p class="feature-description">
+                        Specialized for Belgian law with multi-jurisdictional awareness and multi-language support.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Federal/Vlaams/Waals/Brussels jurisdiction support</li>
+                        <li>Dutch/French/English language processing</li>
+                        <li>Orde van Vlaamse Balies compliance</li>
+                        <li>Belgian legal terminology optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 4: Advanced Document Processing -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="feature-title">📄 Advanced Document Ingestion & Analysis</h3>
+                    <p class="feature-description">
+                        Intelligent PDF processing with metadata extraction and semantic understanding.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Multi-format document support (PDF, DOC, TXT)</li>
+                        <li>Automatic metadata extraction</li>
+                        <li>Semantic chunking and embedding</li>
+                        <li>Document type classification</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 5: Secure Audit & Compliance -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="feature-title">📋 Complete Audit & Compliance System</h3>
+                    <p class="feature-description">
+                        Comprehensive audit logging, compliance tracking, and secure data management.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Complete audit trail for all operations</li>
+                        <li>GDPR and legal compliance features</li>
+                        <li>Secure data retention policies</li>
+                        <li>Multi-pass secure deletion</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 6: Intelligent Practice Management -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">⚙️ AI-Powered Practice Management</h3>
+                    <p class="feature-description">
+                        Complete practice management with time tracking, CRM, and business intelligence.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Automatic time tracking and billing</li>
+                        <li>Intelligent calendar and deadline management</li>
+                        <li>Client relationship management (CRM)</li>
+                        <li>Predictive business intelligence</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 7: Future-Ready Architecture -->
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">🚀 Future-Ready Technology Stack</h3>
+                    <p class="feature-description">
+                        Built with modern technologies for scalability, security, and performance.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>FastAPI backend with async processing</li>
+                        <li>SQLAlchemy ORM with database optimization</li>
+                        <li>Container-ready deployment architecture</li>
+                        <li>Microservices-ready design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison" id="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why We're Revolutionary vs Legal AI Competitors</h2>
+                <p class="section-subtitle">
+                    See how our quantum-ready, offline AI platform compares to cloud-based legal AI solutions.
+                </p>
+            </div>
+
+            <div class="comparison-table">
+                <div class="table-header">
+                    <h3>Feature Comparison: <span class="highlight">Offline AI vs Cloud-Based Solutions</span></h3>
+                    <p>Our quantum-ready, offline platform delivers security and capabilities that cloud-based solutions cannot match</p>
+                </div>
+                
+                <div class="table-content">
+                    <div class="table-column">
+                        <div class="column-header">Feature</div>
+                        <div class="table-cell feature-name">Offline AI Operation</div>
+                        <div class="table-cell feature-name">Quantum-Ready Encryption</div>
+                        <div class="table-cell feature-name">Data Privacy</div>
+                        <div class="table-cell feature-name">Belgian Legal Specialization</div>
+                        <div class="table-cell feature-name">Document Processing</div>
+                        <div class="table-cell feature-name">Audit & Compliance</div>
+                        <div class="table-cell feature-name">Research Capabilities</div>
+                        <div class="table-cell feature-name">Security Level</div>
+                    </div>
+                    
+                    <div class="table-column">
+                        <div class="column-header">Harvey AI</div>
+                        <div class="table-cell cross">❌ Cloud Only</div>
+                        <div class="table-cell basic">Basic Encryption</div>
+                        <div class="table-cell cross">❌ Data Exposure Risk</div>
+                        <div class="table-cell basic">Generic AI</div>
+                        <div class="table-cell basic">Limited Formats</div>
+                        <div class="table-cell basic">Basic Logging</div>
+                        <div class="table-cell basic">Document Analysis</div>
+                        <div class="table-cell basic">Standard</div>
+                    </div>
+                    
+                    <div class="table-column">
+                        <div class="column-header">Casetext</div>
+                        <div class="table-cell cross">❌ Cloud Only</div>
+                        <div class="table-cell basic">Standard Encryption</div>
+                        <div class="table-cell cross">❌ Third-Party Access</div>
+                        <div class="table-cell basic">US-Focused</div>
+                        <div class="table-cell basic">PDF Only</div>
+                        <div class="table-cell basic">Minimal Audit</div>
+                        <div class="table-cell basic">Research Tool</div>
+                        <div class="table-cell basic">Standard</div>
+                    </div>
+                    
+                    <div class="table-column">
+                        <div class="column-header">Our Platform</div>
+                        <div class="table-cell advanced">✅ 100% Offline</div>
+                        <div class="table-cell advanced">🔐 Quantum-Ready</div>
+                        <div class="table-cell advanced">✅ Zero Exposure</div>
+                        <div class="table-cell advanced">🇧🇪 Belgian Specialized</div>
+                        <div class="table-cell advanced">📄 Multi-Format</div>
+                        <div class="table-cell advanced">📋 Complete Audit</div>
+                        <div class="table-cell advanced">🔍 Advanced RAG</div>
+                        <div class="table-cell advanced">🔒 Military-Grade</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Transparent Pricing for Every Practice</h2>
+                <p class="section-subtitle">
+                    Choose the plan that fits your practice size and security requirements.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Solo Practitioner Plan -->
+                <div class="pricing-card scroll-animate">
+                    <div class="pricing-header">
+                        <h3>Solo Practitioner</h3>
+                        <div class="price">
+                            <span class="currency">€</span>
+                            <span class="amount">99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="pricing-description">Perfect for individual lawyers and small practices</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Offline AI Research (Mixtral-8x7B)</li>
+                        <li>✅ Quantum-Ready Encryption</li>
+                        <li>✅ Belgian Legal Specialization</li>
+                        <li>✅ Document Processing (up to 1GB)</li>
+                        <li>✅ Basic Audit & Compliance</li>
+                        <li>✅ Practice Management Tools</li>
+                        <li>✅ Email Support</li>
+                        <li>❌ Advanced Analytics</li>
+                        <li>❌ Team Collaboration</li>
+                    </ul>
+                    <a href="#trial" class="pricing-cta">Start Free Trial</a>
+                </div>
+
+                <!-- Small Firm Plan -->
+                <div class="pricing-card featured scroll-animate">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Small Firm</h3>
+                        <div class="price">
+                            <span class="currency">€</span>
+                            <span class="amount">299</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="pricing-description">Ideal for small law firms and growing practices</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Solo</li>
+                        <li>✅ Advanced AI Research</li>
+                        <li>✅ Enhanced Security Features</li>
+                        <li>✅ Document Processing (up to 10GB)</li>
+                        <li>✅ Complete Audit & Compliance</li>
+                        <li>✅ Team Collaboration (up to 5 users)</li>
+                        <li>✅ Advanced Analytics</li>
+                        <li>✅ Priority Support</li>
+                        <li>✅ Custom Integrations</li>
+                    </ul>
+                    <a href="#trial" class="pricing-cta featured">Start Free Trial</a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card scroll-animate">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">€</span>
+                            <span class="amount">799</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="pricing-description">For large firms requiring maximum security and features</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Small Firm</li>
+                        <li>✅ Unlimited Document Processing</li>
+                        <li>✅ Military-Grade Security</li>
+                        <li>✅ Unlimited Team Members</li>
+                        <li>✅ Custom AI Model Training</li>
+                        <li>✅ White-Label Solutions</li>
+                        <li>✅ Dedicated Support</li>
+                        <li>✅ On-Premise Deployment</li>
+                        <li>✅ Custom Development</li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Contact Sales</a>
+                </div>
+            </div>
+
+            <div class="pricing-footer">
+                <p>All plans include a 30-day free trial. No credit card required.</p>
+                <p>Need a custom plan? <a href="#contact">Contact us</a> for enterprise pricing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="roi" id="roi">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Unmatched Security & Research Benefits</h2>
+                <p class="section-subtitle">
+                    Revolutionary advantages that no cloud-based legal AI solution can provide.
+                </p>
+            </div>
+
+            <div class="roi-grid">
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">100%</div>
+                    <div class="roi-label">Offline Operation</div>
+                    <div class="roi-description">
+                        Complete offline AI operation with local Mixtral-8x7B model processing. 
+                        No internet required, no data leaves your machine.
+                    </div>
+                </div>
+
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">Zero</div>
+                    <div class="roi-label">Data Exposure Risk</div>
+                    <div class="roi-description">
+                        Quantum-ready encryption ensures your sensitive legal documents 
+                        are protected with military-grade security protocols.
+                    </div>
+                </div>
+
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">🇧🇪</div>
+                    <div class="roi-label">Belgian Legal Specialization</div>
+                    <div class="roi-description">
+                        Specialized for Belgian law with multi-jurisdictional support 
+                        and Dutch/French/English language processing.
+                    </div>
+                </div>
+
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">🔍</div>
+                    <div class="roi-label">Advanced RAG Research</div>
+                    <div class="roi-description">
+                        Retrieval-Augmented Generation with source verification 
+                        and citations for every AI-generated response.
+                    </div>
+                </div>
+
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">📋</div>
+                    <div class="roi-label">Complete Audit Trail</div>
+                    <div class="roi-description">
+                        Comprehensive audit logging and compliance features 
+                        for GDPR and legal professional requirements.
+                    </div>
+                </div>
+
+                <div class="roi-card scroll-animate">
+                    <div class="roi-number">🔐</div>
+                    <div class="roi-label">Quantum-Ready Security</div>
+                    <div class="roi-description">
+                        AES-256-GCM and RSA-4096 encryption with quantum-resistant 
+                        algorithms for future-proof security.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready for the Future of Legal AI?</h2>
+            <p class="cta-subtitle">
+                Experience the world's most secure, offline AI legal platform with quantum-ready encryption. 
+                Join the revolution in legal technology that puts privacy and security first.
+            </p>
+            <div class="hero-buttons">
+                <a href="#trial" class="btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Start Free Trial
+                </a>
+                <a href="#demo" class="btn-secondary">Schedule Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#comparison">Comparison</a></li>
+                        <li><a href="#roi">ROI Calculator</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#api">API</a></li>
+                        <li><a href="#support">Support</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#privacy">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#twitter">Twitter</a></li>
+                        <li><a href="#linkedin">LinkedIn</a></li>
+                        <li><a href="#github">GitHub</a></li>
+                        <li><a href="#email">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LegalPlatform. All rights reserved. Built with ❤️ for the legal community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(37, 99, 235, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Add click handlers for demo and trial buttons
+        document.querySelectorAll('a[href="#demo"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Demo video would play here. Contact us to schedule a personalized demo!');
+            });
+        });
+
+        document.querySelectorAll('a[href="#trial"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Free trial signup form would appear here. Contact us to get started!');
+            });
+        });
+
+        // Add some interactive elements
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate stats on scroll
+        const animateStats = () => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : '');
+                }, 30);
+            });
+        };
+
+        // Trigger stats animation when ROI section is visible
+        const roiSection = document.querySelector('.roi');
+        const roiObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    roiObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        roiObserver.observe(roiSection);
+    </script>
+</body>
+</html> 

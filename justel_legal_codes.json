@@ -1,0 +1,331 @@
+{
+  "scrape_date": "2025-08-17 23:49:11",
+  "total_codes": 40,
+  "categories": {
+    "Federal": 17,
+    "Community": 4,
+    "Regional": 19
+  },
+  "legal_codes": [
+    {
+      "name": "Belgisch Scheepvaartwetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2019/05/08/2019A12565_N.pdf",
+      "numac_code": "2010032950",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Boswetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1854/12/19/1854121950_N.pdf",
+      "numac_code": "1854121950",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Burgerlijk Wetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1804/03/21/1804032150M_N.pdf",
+      "numac_code": "1804050150",
+      "last_updated": null,
+      "description": "The Belgian Civil Code containing fundamental civil law principles"
+    },
+    {
+      "name": "Consulair Wetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/12/21/2014A15009_N.pdf",
+      "numac_code": "1999122250",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Gerechtelijk Wetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1967/10/10/1967101052M_N.pdf",
+      "numac_code": "1967101050",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "The Belgian Judicial Code governing court procedures and organization"
+    },
+    {
+      "name": "Kieswetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1894/04/12/1894041255_N.pdf",
+      "numac_code": "1989031550",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Sociaal Strafwetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2010/06/06/2010A09589_N.pdf",
+      "numac_code": "2010060150",
+      "last_updated": null,
+      "description": "The Belgian Social Criminal Code for social security violations"
+    },
+    {
+      "name": "Strafwetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1867/06/08/1867060850_N.pdf",
+      "numac_code": "1867060850",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "The Belgian Criminal Code defining criminal offenses and penalties"
+    },
+    {
+      "name": "Veldwetboek",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1886/10/07/1886100750_N.pdf",
+      "numac_code": "2007122750",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek diverse rechten en taksen",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1927/03/02/1927030201_N.pdf",
+      "numac_code": "1939091250",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van Strafvordering",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1808/11/17/1808111701M_N.pdf",
+      "numac_code": "1878061550",
+      "last_updated": null,
+      "description": "The Belgian Code of Criminal Procedure governing criminal proceedings"
+    },
+    {
+      "name": "Wetboek van de Belgische nationaliteit",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1984/06/28/1984900065_N.pdf",
+      "numac_code": "1984062850",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van de minnelijke en gedwongen invordering van fiscale en niet-fiscale schuldvorderingen",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2019/04/13/2019A41000_N.pdf",
+      "numac_code": "1992122250",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van economisch recht",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/02/28/2013A11134_N.pdf",
+      "numac_code": "2013032850",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van internationaal privaatrecht",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2004/07/16/2004009511_N.pdf",
+      "numac_code": "2004071650",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van koophandel",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1807/09/10/1807091050M_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Wetboek van strafrechtspleging voor het leger",
+      "category": "Federal",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1899/06/15/1899061501_N.pdf",
+      "numac_code": "2003122250",
+      "last_updated": null,
+      "description": "Belgian legal code in the Federal category"
+    },
+    {
+      "name": "Codex hoger onderwijs",
+      "category": "Community",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/10/11/2014A35166_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Community category"
+    },
+    {
+      "name": "Vlaamse Codex Overheidsfinanciën",
+      "category": "Community",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2019/03/29/2019012533_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Community category"
+    },
+    {
+      "name": "Vlaamse codex secundair onderwijs",
+      "category": "Community",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2010/12/17/2011A35474_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Community category"
+    },
+    {
+      "name": "Wetboek voor het basis- en secundair onderwijs",
+      "category": "Community",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2019/05/03/2019A30854_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Community category"
+    },
+    {
+      "name": "Brussels Gemeentelijk Kieswetboek",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1932/08/04/1932080451_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Brussels Wetboek van Lucht, Klimaat en Energiebeheersing",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/05/02/2013A31357_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Brussels Wetboek van Ruimtelijke Ordening",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2004/04/09/2004A31182_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "The Brussels Spatial Planning Code for urban development"
+    },
+    {
+      "name": "Brusselse Huisvestingscode",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2003/07/17/2013A31614_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Vlaamse Codex Fiscaliteit",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/12/13/2013036154_N.pdf",
+      "numac_code": "2013035070",
+      "last_updated": null,
+      "description": "The Flemish Tax Code regulating tax matters in Flanders"
+    },
+    {
+      "name": "Vlaamse Codex ruimtelijke ordening",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2009/05/15/2009A35738_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "The Flemish Spatial Planning Code for urban development"
+    },
+    {
+      "name": "Vlaamse Wooncode",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1997/07/15/1997036023_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waals Toerismewetboek",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2010/04/01/2010A27059_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waals Wetboek van Sociale Actie en Gezondheid (WWSAG) - Decretale deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2011/09/29/2011A27223_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waals Wetboek van Sociale Actie en Gezondheid (WWSAG) - Reglementair deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2013/07/04/2013A27132_N.pdf",
+      "numac_code": null,
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Ambtenarencode",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2003/12/18/2003027783_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Erfgoedwetboek (WEWB) - Reglementair deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2019/01/31/2019A01068_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Landbouwwetboek",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2014/03/27/2014027151_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Milieuwetboek (WMWB) - Decretale deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2004/05/27/2004A27101M_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Milieuwetboek (WMWB) - Reglementair deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2005/03/17/2005A27317_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Wetboek van Duurzaam Wonen",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/1998/10/29/1998A27652_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Wetboek van Ruimtelijke Ontwikkeling (WeRO) - Decretale deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2016/07/20/2016A05561_N.pdf",
+      "numac_code": null,
+      "last_updated": "minder dan 1 maand geleden bijgewerkt",
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Waalse Wetboek van Ruimtelijke Ontwikkeling (WeRO) - Reglementair deel",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2016/12/22/2017A70033_N.pdf",
+      "numac_code": null,
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    },
+    {
+      "name": "Wetboek van de plaatselijke democratie en decentralisatie",
+      "category": "Regional",
+      "pdf_url": "https://www.ejustice.just.fgov.be/img_l/pdf/2004/04/22/2004A27184_N.pdf",
+      "numac_code": "2014035070",
+      "last_updated": null,
+      "description": "Belgian legal code in the Regional category"
+    }
+  ]
+}

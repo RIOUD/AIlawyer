@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing & Time Tracking - Legal Platform MVP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 30px;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            border-radius: 10px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            padding: 12px 15px;
+        }
+        .sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        .sidebar .nav-link.active {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        .billing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #3498db;
+        }
+        .billing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .billing-card.revenue {
+            border-left-color: #27ae60;
+        }
+        .billing-card.hours {
+            border-left-color: #f39c12;
+        }
+        .billing-card.clients {
+            border-left-color: #9b59b6;
+        }
+        .billing-card.rate {
+            border-left-color: #e74c3c;
+        }
+        .billing-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .billing-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .billing-change {
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .billing-change.positive {
+            color: #27ae60;
+        }
+        .billing-change.negative {
+            color: #e74c3c;
+        }
+        .time-tracker {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .timer-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .timer-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .timer-btn.active {
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .time-entries {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .time-entry-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .time-entry-item:hover {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding-left: 10px;
+        }
+        .time-entry-item:last-child {
+            border-bottom: none;
+        }
+        .time-entry-info {
+            flex: 1;
+        }
+        .time-entry-client {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .time-entry-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .time-entry-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .time-entry-hours {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .time-entry-rate {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .time-entry-total {
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .add-time-btn {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 25px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .add-time-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+        .billing-rates {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .rate-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .rate-item:last-child {
+            border-bottom: none;
+        }
+        .rate-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .rate-amount {
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2980b9, #1f5f8b);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .invoice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .invoice-item:last-child {
+            border-bottom: none;
+        }
+        .invoice-client {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .invoice-amount {
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .invoice-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .invoice-status.paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        .invoice-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .invoice-status.overdue {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h4 class="mb-4"><i class="fas fa-balance-scale"></i> Legal Platform</h4>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a class="nav-link" href="clients.html">
+                            <i class="fas fa-users"></i> Clients
+                        </a>
+                        <a class="nav-link" href="calendar.html">
+                            <i class="fas fa-calendar"></i> Calendar
+                        </a>
+                        <a class="nav-link" href="research.html">
+                            <i class="fas fa-search"></i> Research
+                        </a>
+                        <a class="nav-link" href="documents.html">
+                            <i class="fas fa-file-alt"></i> Documents
+                        </a>
+                        <a class="nav-link active" href="billing.html">
+                            <i class="fas fa-dollar-sign"></i> Billing
+                        </a>
+                        <a class="nav-link" href="analytics.html">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </a>
+                        <a class="nav-link" href="settings.html">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </nav>
+                    
+                    <hr class="my-4">
+                    
+                    <h6><i class="fas fa-chart-pie"></i> Billing Stats</h6>
+                    <div class="stats-card">
+                        <div class="stats-number" id="totalRevenue">€2,275</div>
+                        <div>Total Revenue</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="totalHours">9.5</div>
+                        <div>Total Hours</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number" id="averageRate">€239</div>
+                        <div>Avg Rate/hr</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <div class="main-container">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-dollar-sign"></i> Billing & Time Tracking</h2>
+                        <button class="btn add-time-btn" data-bs-toggle="modal" data-bs-target="#addTimeEntryModal">
+                            <i class="fas fa-plus"></i> Add Time Entry
+                        </button>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="billing-card revenue">
+                                <div class="billing-label">Monthly Revenue</div>
+                                <div class="billing-number" id="monthlyRevenue">€2,275</div>
+                                <div class="billing-change positive">
+                                    <i class="fas fa-arrow-up"></i> +15% from last month
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="billing-card hours">
+                                <div class="billing-label">Billable Hours</div>
+                                <div class="billing-number" id="billableHours">9.5</div>
+                                <div class="billing-change positive">
+                                    <i class="fas fa-arrow-up"></i> +2.5 this week
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="billing-card clients">
+                                <div class="billing-label">Active Clients</div>
+                                <div class="billing-number" id="activeClients">4</div>
+                                <div class="billing-change positive">
+                                    <i class="fas fa-arrow-up"></i> +1 this month
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="billing-card rate">
+                                <div class="billing-label">Average Rate</div>
+                                <div class="billing-number" id="averageRateDisplay">€239</div>
+                                <div class="billing-change positive">
+                                    <i class="fas fa-arrow-up"></i> +€12 from last month
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Tracker -->
+                    <div class="time-tracker">
+                        <h5 class="mb-3"><i class="fas fa-clock"></i> Live Time Tracker</h5>
+                        <div class="timer-display" id="timerDisplay">00:00:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" id="startTimer" onclick="startTimer()">
+                                <i class="fas fa-play"></i> Start
+                            </button>
+                            <button class="timer-btn" id="pauseTimer" onclick="pauseTimer()" style="display: none;">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                            <button class="timer-btn" id="stopTimer" onclick="stopTimer()" style="display: none;">
+                                <i class="fas fa-stop"></i> Stop
+                            </button>
+                            <button class="timer-btn" onclick="resetTimer()">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <small>Currently tracking: <span id="currentClient">No client selected</span></small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Time Entries -->
+                        <div class="col-md-8">
+                            <div class="time-entries">
+                                <h5 class="mb-3"><i class="fas fa-history"></i> Recent Time Entries</h5>
+                                <div id="timeEntriesList">
+                                    <!-- Time entries will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Billing Rates & Invoices -->
+                        <div class="col-md-4">
+                            <div class="billing-rates">
+                                <h5 class="mb-3"><i class="fas fa-tags"></i> Billing Rates</h5>
+                                <div class="rate-item">
+                                    <span class="rate-name">Consultation</span>
+                                    <span class="rate-amount">€250/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Document Review</span>
+                                    <span class="rate-amount">€200/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Legal Research</span>
+                                    <span class="rate-amount">€180/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Court Appearance</span>
+                                    <span class="rate-amount">€350/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Negotiation</span>
+                                    <span class="rate-amount">€300/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Contract Drafting</span>
+                                    <span class="rate-amount">€250/hr</span>
+                                </div>
+                                <div class="rate-item">
+                                    <span class="rate-name">Compliance Review</span>
+                                    <span class="rate-amount">€225/hr</span>
+                                </div>
+                            </div>
+
+                            <div class="invoice-section">
+                                <h5 class="mb-3"><i class="fas fa-file-invoice"></i> Recent Invoices</h5>
+                                <div class="invoice-item">
+                                    <span class="invoice-client">Jan Janssens</span>
+                                    <span class="invoice-amount">€625</span>
+                                    <span class="invoice-status paid">Paid</span>
+                                </div>
+                                <div class="invoice-item">
+                                    <span class="invoice-client">Marie Dubois</span>
+                                    <span class="invoice-amount">€750</span>
+                                    <span class="invoice-status pending">Pending</span>
+                                </div>
+                                <div class="invoice-item">
+                                    <span class="invoice-client">Sophie Martin</span>
+                                    <span class="invoice-amount">€900</span>
+                                    <span class="invoice-status paid">Paid</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Time Entry Modal -->
+    <div class="modal fade" id="addTimeEntryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-plus"></i> Add Time Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTimeEntryForm">
+                        <div class="mb-3">
+                            <label class="form-label">Client *</label>
+                            <select class="form-control" id="timeEntryClient" required>
+                                <option value="">Select a client</option>
+                                <!-- Clients will be loaded here -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date *</label>
+                            <input type="date" class="form-control" id="timeEntryDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description *</label>
+                            <textarea class="form-control" id="timeEntryDescription" rows="3" required placeholder="Describe the work performed..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hours *</label>
+                            <input type="number" class="form-control" id="timeEntryHours" step="0.25" min="0.25" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Billing Rate *</label>
+                            <select class="form-control" id="timeEntryRate" required>
+                                <option value="250">Consultation - €250/hr</option>
+                                <option value="200">Document Review - €200/hr</option>
+                                <option value="180">Legal Research - €180/hr</option>
+                                <option value="350">Court Appearance - €350/hr</option>
+                                <option value="300">Negotiation - €300/hr</option>
+                                <option value="250">Contract Drafting - €250/hr</option>
+                                <option value="225">Compliance Review - €225/hr</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Billing Code</label>
+                            <select class="form-control" id="timeEntryBillingCode">
+                                <option value="CONSULTATION">Consultation</option>
+                                <option value="DOCUMENT_REVIEW">Document Review</option>
+                                <option value="LEGAL_RESEARCH">Legal Research</option>
+                                <option value="COURT_APPEARANCE">Court Appearance</option>
+                                <option value="NEGOTIATION">Negotiation</option>
+                                <option value="CONTRACT_DRAFTING">Contract Drafting</option>
+                                <option value="COMPLIANCE_REVIEW">Compliance Review</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addTimeEntry()">Add Time Entry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let timeEntries = [];
+        let timerRunning = false;
+        let timerInterval;
+        let startTime;
+        let elapsedTime = 0;
+
+        // Load data on page load
+        window.addEventListener('load', function() {
+            loadTimeEntries();
+            loadClients();
+            updateStats();
+            setTodayDate();
+        });
+
+        // Load time entries from API
+        async function loadTimeEntries() {
+            try {
+                const response = await fetch('/api/billing/time-entries');
+                const data = await response.json();
+                
+                if (data.success) {
+                    timeEntries = data.entries;
+                    renderTimeEntries();
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Error loading time entries:', error);
+            }
+        }
+
+        // Load clients for time entry form
+        async function loadClients() {
+            try {
+                const response = await fetch('/api/clients');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const clientSelect = document.getElementById('timeEntryClient');
+                    clientSelect.innerHTML = '<option value="">Select a client</option>';
+                    
+                    data.clients.forEach(client => {
+                        const option = document.createElement('option');
+                        option.value = client.name;
+                        option.textContent = client.name;
+                        clientSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading clients:', error);
+            }
+        }
+
+        // Render time entries
+        function renderTimeEntries() {
+            const timeEntriesList = document.getElementById('timeEntriesList');
+            
+            if (timeEntries.length === 0) {
+                timeEntriesList.innerHTML = '<p class="text-muted">No time entries found</p>';
+                return;
+            }
+
+            const sortedEntries = timeEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            timeEntriesList.innerHTML = sortedEntries.map(entry => `
+                <div class="time-entry-item">
+                    <div class="time-entry-info">
+                        <div class="time-entry-client">${entry.client}</div>
+                        <div class="time-entry-description">${entry.description}</div>
+                    </div>
+                    <div class="time-entry-meta">
+                        <span class="time-entry-hours">${entry.hours}h</span>
+                        <span class="time-entry-rate">€${entry.rate}/hr</span>
+                        <span class="time-entry-total">€${entry.total}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add new time entry
+        async function addTimeEntry() {
+            const formData = {
+                client: document.getElementById('timeEntryClient').value,
+                date: document.getElementById('timeEntryDate').value,
+                description: document.getElementById('timeEntryDescription').value,
+                hours: parseFloat(document.getElementById('timeEntryHours').value),
+                rate: parseFloat(document.getElementById('timeEntryRate').value),
+                billing_code: document.getElementById('timeEntryBillingCode').value
+            };
+
+            try {
+                const response = await fetch('/api/billing/time-entries', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    timeEntries.push(data.entry);
+                    renderTimeEntries();
+                    updateStats();
+                    
+                    // Close modal and reset form
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addTimeEntryModal'));
+                    modal.hide();
+                    document.getElementById('addTimeEntryForm').reset();
+                    setTodayDate();
+                    
+                    alert('Time entry added successfully!');
+                } else {
+                    alert('Failed to add time entry: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error adding time entry: ' + error.message);
+            }
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (!timerRunning) {
+                timerRunning = true;
+                startTime = Date.now() - elapsedTime;
+                timerInterval = setInterval(updateTimer, 1000);
+                
+                document.getElementById('startTimer').style.display = 'none';
+                document.getElementById('pauseTimer').style.display = 'inline-block';
+                document.getElementById('stopTimer').style.display = 'inline-block';
+            }
+        }
+
+        function pauseTimer() {
+            if (timerRunning) {
+                timerRunning = false;
+                clearInterval(timerInterval);
+                elapsedTime = Date.now() - startTime;
+                
+                document.getElementById('startTimer').style.display = 'inline-block';
+                document.getElementById('pauseTimer').style.display = 'none';
+            }
+        }
+
+        function stopTimer() {
+            if (timerRunning) {
+                timerRunning = false;
+                clearInterval(timerInterval);
+                elapsedTime = Date.now() - startTime;
+                
+                document.getElementById('startTimer').style.display = 'inline-block';
+                document.getElementById('pauseTimer').style.display = 'none';
+                document.getElementById('stopTimer').style.display = 'none';
+                
+                // Show dialog to save time entry
+                const hours = Math.floor(elapsedTime / 3600000);
+                const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+                const seconds = Math.floor((elapsedTime % 60000) / 1000);
+                
+                const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (confirm(`Timer stopped at ${timeString}. Would you like to save this as a time entry?`)) {
+                    // Pre-fill the time entry form
+                    document.getElementById('timeEntryHours').value = (elapsedTime / 3600000).toFixed(2);
+                    const modal = new bootstrap.Modal(document.getElementById('addTimeEntryModal'));
+                    modal.show();
+                }
+                
+                resetTimer();
+            }
+        }
+
+        function resetTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            elapsedTime = 0;
+            updateTimerDisplay();
+            
+            document.getElementById('startTimer').style.display = 'inline-block';
+            document.getElementById('pauseTimer').style.display = 'none';
+            document.getElementById('stopTimer').style.display = 'none';
+        }
+
+        function updateTimer() {
+            elapsedTime = Date.now() - startTime;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(elapsedTime / 3600000);
+            const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+            const seconds = Math.floor((elapsedTime % 60000) / 1000);
+            
+            document.getElementById('timerDisplay').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalRevenue = timeEntries.reduce((sum, entry) => sum + entry.total, 0);
+            const totalHours = timeEntries.reduce((sum, entry) => sum + entry.hours, 0);
+            const averageRate = totalHours > 0 ? totalRevenue / totalHours : 0;
+            
+            document.getElementById('totalRevenue').textContent = `€${totalRevenue.toLocaleString()}`;
+            document.getElementById('totalHours').textContent = totalHours.toFixed(1);
+            document.getElementById('averageRate').textContent = `€${Math.round(averageRate)}`;
+            
+            document.getElementById('monthlyRevenue').textContent = `€${totalRevenue.toLocaleString()}`;
+            document.getElementById('billableHours').textContent = totalHours.toFixed(1);
+            document.getElementById('averageRateDisplay').textContent = `€${Math.round(averageRate)}`;
+        }
+
+        // Utility functions
+        function setTodayDate() {
+            document.getElementById('timeEntryDate').value = new Date().toISOString().split('T')[0];
+        }
+
+        // Auto-refresh data every 30 seconds
+        setInterval(loadTimeEntries, 30000);
+    </script>
+</body>
+</html> 

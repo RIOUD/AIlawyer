@@ -116,4 +116,8 @@ prometheus_data/
 
 # Configuration overrides
 config.local.py
-settings.local.py 
+settings.local.py offline_legal_knowledge/
+comprehensive_legal_databases/
+eur_lex_belgian_databases/
+legal_databases/
+official_legal_databases/

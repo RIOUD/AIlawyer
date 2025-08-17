@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LawyerAgent 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0100\n"
+"PO-Revision-Date: 2024-01-01 12:00+0100\n"
+"Last-Translator: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Templates"
+msgstr "Templates"
+
+msgid "History"
+msgstr "History"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Security"
+msgstr "Security"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Welcome to LawyerAgent"
+msgstr "Welcome to LawyerAgent"
+
+msgid "Secure Offline Belgian Legal Assistant"
+msgstr "Secure Offline Belgian Legal Assistant"
+
+msgid "Ask a legal question"
+msgstr "Ask a legal question"
+
+msgid "Search documents"
+msgstr "Search documents"
+
+msgid "Generate document"
+msgstr "Generate document"
+
+msgid "View history"
+msgstr "View history"
+
+msgid "Manage templates"
+msgstr "Manage templates"
+
+msgid "Security settings"
+msgstr "Security settings"
+
+msgid "Language changed successfully"
+msgstr "Language changed successfully"
+
+msgid "Unsupported language"
+msgstr "Unsupported language"
+
+msgid "Dutch"
+msgstr "Dutch"
+
+msgid "French"
+msgstr "French"
+
+msgid "English"
+msgstr "English"
+
+msgid "German"
+msgstr "German"
+
+msgid "Select Language"
+msgstr "Select Language"
+
+msgid "Recent Documents"
+msgstr "Recent Documents"
+
+msgid "Quick Actions"
+msgstr "Quick Actions"
+
+msgid "System Status"
+msgstr "System Status"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Documents Processed"
+msgstr "Documents Processed"
+
+msgid "Templates Available"
+msgstr "Templates Available"
+
+msgid "Security Level"
+msgstr "Security Level"
+
+msgid "High"
+msgstr "High"
+
+msgid "Medium"
+msgstr "Medium"
+
+msgid "Low"
+msgstr "Low"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "About"
+msgstr "About"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "View"
+msgstr "View"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Info"
+msgstr "Info" 

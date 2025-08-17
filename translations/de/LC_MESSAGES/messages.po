@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LawyerAgent 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0100\n"
+"PO-Revision-Date: 2024-01-01 12:00+0100\n"
+"Last-Translator: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Documents"
+msgstr "Dokumente"
+
+msgid "Templates"
+msgstr "Vorlagen"
+
+msgid "History"
+msgstr "Verlauf"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Security"
+msgstr "Sicherheit"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Welcome to LawyerAgent"
+msgstr "Willkommen bei LawyerAgent"
+
+msgid "Secure Offline Belgian Legal Assistant"
+msgstr "Sicherer Offline-Belgischer Rechtsassistent"
+
+msgid "Ask a legal question"
+msgstr "Stellen Sie eine Rechtsfrage"
+
+msgid "Search documents"
+msgstr "Dokumente durchsuchen"
+
+msgid "Generate document"
+msgstr "Dokument generieren"
+
+msgid "View history"
+msgstr "Verlauf anzeigen"
+
+msgid "Manage templates"
+msgstr "Vorlagen verwalten"
+
+msgid "Security settings"
+msgstr "Sicherheitseinstellungen"
+
+msgid "Language changed successfully"
+msgstr "Sprache erfolgreich geändert"
+
+msgid "Unsupported language"
+msgstr "Nicht unterstützte Sprache"
+
+msgid "Dutch"
+msgstr "Niederländisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Select Language"
+msgstr "Sprache auswählen"
+
+msgid "Recent Documents"
+msgstr "Aktuelle Dokumente"
+
+msgid "Quick Actions"
+msgstr "Schnellaktionen"
+
+msgid "System Status"
+msgstr "Systemstatus"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Documents Processed"
+msgstr "Verarbeitete Dokumente"
+
+msgid "Templates Available"
+msgstr "Verfügbare Vorlagen"
+
+msgid "Security Level"
+msgstr "Sicherheitsstufe"
+
+msgid "High"
+msgstr "Hoch"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Low"
+msgstr "Niedrig"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "About"
+msgstr "Über"
+
+msgid "Contact"
+msgstr "Kontakt"
+
+msgid "Submit"
+msgstr "Absenden"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "View"
+msgstr "Anzeigen"
+
+msgid "Download"
+msgstr "Herunterladen"
+
+msgid "Upload"
+msgstr "Hochladen"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Löschen"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "Success"
+msgstr "Erfolg"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "Info"
+msgstr "Info" 

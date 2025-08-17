@@ -1,0 +1,756 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LawyerAgent 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0100\n"
+"PO-Revision-Date: 2024-01-01 12:00+0100\n"
+"Last-Translator: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Documents"
+msgstr "Documenten"
+
+msgid "Templates"
+msgstr "Sjablonen"
+
+msgid "History"
+msgstr "Geschiedenis"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Security"
+msgstr "Beveiliging"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "Welcome to LawyerAgent"
+msgstr "Welkom bij LawyerAgent"
+
+msgid "Secure Offline Belgian Legal Assistant"
+msgstr "Veilige Offline Belgische Juridische Assistent"
+
+msgid "Ask a legal question"
+msgstr "Stel een juridische vraag"
+
+msgid "Search documents"
+msgstr "Zoek in documenten"
+
+msgid "Generate document"
+msgstr "Document genereren"
+
+msgid "View history"
+msgstr "Geschiedenis bekijken"
+
+msgid "Manage templates"
+msgstr "Sjablonen beheren"
+
+msgid "Security settings"
+msgstr "Beveiligingsinstellingen"
+
+msgid "Language changed successfully"
+msgstr "Taal succesvol gewijzigd"
+
+msgid "Unsupported language"
+msgstr "Niet-ondersteunde taal"
+
+msgid "Dutch"
+msgstr "Nederlands"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Select Language"
+msgstr "Selecteer Taal"
+
+msgid "Recent Documents"
+msgstr "Recente Documenten"
+
+msgid "Quick Actions"
+msgstr "Snelle Acties"
+
+msgid "System Status"
+msgstr "Systeem Status"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Documents Processed"
+msgstr "Verwerkte Documenten"
+
+msgid "Templates Available"
+msgstr "Beschikbare Sjablonen"
+
+msgid "Security Level"
+msgstr "Beveiligingsniveau"
+
+msgid "High"
+msgstr "Hoog"
+
+msgid "Medium"
+msgstr "Gemiddeld"
+
+msgid "Low"
+msgstr "Laag"
+
+msgid "Logout"
+msgstr "Uitloggen"
+
+msgid "Profile"
+msgstr "Profiel"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "About"
+msgstr "Over"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Submit"
+msgstr "Versturen"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "View"
+msgstr "Bekijken"
+
+msgid "Download"
+msgstr "Downloaden"
+
+msgid "Upload"
+msgstr "Uploaden"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Wissen"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Success"
+msgstr "Succes"
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgid "Info"
+msgstr "Informatie"
+
+msgid "Legal Query"
+msgstr "Juridische Vraag"
+
+msgid "Ask questions about your legal documents"
+msgstr "Stel vragen over uw juridische documenten"
+
+msgid "Start Query"
+msgstr "Start Vraag"
+
+msgid "Document Templates"
+msgstr "Document Sjablonen"
+
+msgid "Generate legal documents from templates"
+msgstr "Genereer juridische documenten uit sjablonen"
+
+msgid "View Templates"
+msgstr "Bekijk Sjablonen"
+
+msgid "Manage Filters"
+msgstr "Beheer Filters"
+
+msgid "Set search filters for better results"
+msgstr "Stel zoekfilters in voor betere resultaten"
+
+msgid "Configure"
+msgstr "Configureren"
+
+msgid "Manage encryption and security settings"
+msgstr "Beheer encryptie en beveiligingsinstellingen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Language Support"
+msgstr "Taal Ondersteuning"
+
+msgid "This platform supports multiple languages for the Belgian market:"
+msgstr "Dit platform ondersteunt meerdere talen voor de Belgische markt:"
+
+msgid "Primary"
+msgstr "Primair"
+
+msgid "You can change the language using the dropdown in the navigation bar."
+msgstr "U kunt de taal wijzigen met behulp van de dropdown in de navigatiebalk."
+
+msgid "All rights reserved."
+msgstr "Alle rechten voorbehouden."
+
+msgid "Clients"
+msgstr "Klanten"
+
+msgid "Calendar"
+msgstr "Kalender"
+
+msgid "Research"
+msgstr "Onderzoek"
+
+msgid "Billing"
+msgstr "Facturering"
+
+msgid "Analytics"
+msgstr "Analytics"
+
+msgid "Client Management"
+msgstr "Klantenbeheer"
+
+msgid "Manage your legal clients and their cases"
+msgstr "Beheer uw juridische klanten en hun zaken"
+
+msgid "Add Client"
+msgstr "Klant toevoegen"
+
+msgid "Total Clients"
+msgstr "Totaal aantal klanten"
+
+msgid "Active Cases"
+msgstr "Actieve zaken"
+
+msgid "Total Revenue"
+msgstr "Totale omzet"
+
+msgid "Average Revenue"
+msgstr "Gemiddelde omzet"
+
+msgid "Search clients..."
+msgstr "Zoek klanten..."
+
+msgid "All Practice Areas"
+msgstr "Alle rechtsgebieden"
+
+msgid "Employment Law"
+msgstr "Arbeidsrecht"
+
+msgid "Commercial Law"
+msgstr "Handelsrecht"
+
+msgid "Civil Law"
+msgstr "Burgerlijk recht"
+
+msgid "Criminal Law"
+msgstr "Strafrecht"
+
+msgid "All Status"
+msgstr "Alle statussen"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Inactive"
+msgstr "Inactief"
+
+msgid "Prospect"
+msgstr "Prospect"
+
+msgid "Client List"
+msgstr "Klantenlijst"
+
+msgid "Client Name"
+msgstr "Klantnaam"
+
+msgid "Practice Area"
+msgstr "Rechtsgebied"
+
+msgid "Cases"
+msgstr "Zaken"
+
+msgid "Revenue"
+msgstr "Omzet"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Add New Client"
+msgstr "Nieuwe klant toevoegen"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Phone"
+msgstr "Telefoon"
+
+msgid "Select Practice Area"
+msgstr "Selecteer rechtsgebied"
+
+msgid "Notes"
+msgstr "Notities"
+
+msgid "Client added successfully!"
+msgstr "Klant succesvol toegevoegd!"
+
+msgid "Calendar & Scheduling"
+msgstr "Kalender & Planning"
+
+msgid "Manage your legal appointments, court hearings, and meetings"
+msgstr "Beheer uw juridische afspraken, rechtszittingen en vergaderingen"
+
+msgid "Add Event"
+msgstr "Evenement toevoegen"
+
+msgid "Today"
+msgstr "Vandaag"
+
+msgid "Month"
+msgstr "Maand"
+
+msgid "Week"
+msgstr "Week"
+
+msgid "Day"
+msgstr "Dag"
+
+msgid "Upcoming Events"
+msgstr "Aankomende evenementen"
+
+msgid "Court Hearing"
+msgstr "Rechtszitting"
+
+msgid "Client Meeting"
+msgstr "Klantvergadering"
+
+msgid "Document Review"
+msgstr "Documentbeoordeling"
+
+msgid "Add New Event"
+msgstr "Nieuw evenement toevoegen"
+
+msgid "Event Title"
+msgstr "Evenementtitel"
+
+msgid "Event Type"
+msgstr "Evenementtype"
+
+msgid "Select Type"
+msgstr "Selecteer type"
+
+msgid "Consultation"
+msgstr "Consultatie"
+
+msgid "Deadline"
+msgstr "Deadline"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Time"
+msgstr "Tijd"
+
+msgid "Select Client"
+msgstr "Selecteer klant"
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Event added successfully!"
+msgstr "Evenement succesvol toegevoegd!"
+
+msgid "Billing & Invoicing"
+msgstr "Facturering & Facturen"
+
+msgid "Manage your legal billing, invoices, and revenue tracking"
+msgstr "Beheer uw juridische facturering, facturen en omzetregistratie"
+
+msgid "Create Invoice"
+msgstr "Factuur aanmaken"
+
+msgid "Monthly Revenue"
+msgstr "Maandelijkse omzet"
+
+msgid "from last month"
+msgstr "van vorige maand"
+
+msgid "Pending Amount"
+msgstr "Openstaand bedrag"
+
+msgid "Awaiting payment"
+msgstr "Wachtend op betaling"
+
+msgid "Overdue Amount"
+msgstr "Achterstallig bedrag"
+
+msgid "Past due date"
+msgstr "Voorbij vervaldatum"
+
+msgid "this week"
+msgstr "deze week"
+
+msgid "Revenue Trend"
+msgstr "Omzetontwikkeling"
+
+msgid "Recent Invoices"
+msgstr "Recente facturen"
+
+msgid "Invoice #"
+msgstr "Factuur #"
+
+msgid "Amount"
+msgstr "Bedrag"
+
+msgid "Paid"
+msgstr "Betaald"
+
+msgid "Pending"
+msgstr "In behandeling"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "Send"
+msgstr "Versturen"
+
+msgid "Create New Invoice"
+msgstr "Nieuwe factuur aanmaken"
+
+msgid "Invoice Date"
+msgstr "Factuurdatum"
+
+msgid "Due Date"
+msgstr "Vervaldatum"
+
+msgid "Currency"
+msgstr "Valuta"
+
+msgid "Legal services provided..."
+msgstr "Verleende juridische diensten..."
+
+msgid "Invoice Items"
+msgstr "Factuurregels"
+
+msgid "Item description"
+msgstr "Artikelbeschrijving"
+
+msgid "Hours"
+msgstr "Uren"
+
+msgid "Rate"
+msgstr "Tarief"
+
+msgid "Add Item"
+msgstr "Artikel toevoegen"
+
+msgid "Subtotal:"
+msgstr "Subtotaal:"
+
+msgid "VAT (21%):"
+msgstr "BTW (21%):"
+
+msgid "Total:"
+msgstr "Totaal:"
+
+msgid "Invoice created successfully!"
+msgstr "Factuur succesvol aangemaakt!"
+
+msgid "Analytics & Reporting"
+msgstr "Analytics & Rapporten"
+
+msgid "Comprehensive insights into your legal practice performance"
+msgstr "Uitgebreide inzichten in uw juridische praktijkprestaties"
+
+msgid "this month"
+msgstr "deze maand"
+
+msgid "Next: Court hearing"
+msgstr "Volgende: Rechtszitting"
+
+msgid "Practice Areas"
+msgstr "Rechtsgebieden"
+
+msgid "Client Growth"
+msgstr "Klantengroei"
+
+msgid "Case Status"
+msgstr "Zaakstatus"
+
+msgid "Practice Areas Performance"
+msgstr "Prestaties rechtsgebieden"
+
+msgid "Growth"
+msgstr "Groei"
+
+msgid "Performance"
+msgstr "Prestatie"
+
+msgid "Recent Activity"
+msgstr "Recente activiteit"
+
+msgid "New client added"
+msgstr "Nieuwe klant toegevoegd"
+
+msgid "2 hours ago"
+msgstr "2 uur geleden"
+
+msgid "Invoice paid"
+msgstr "Factuur betaald"
+
+msgid "1 day ago"
+msgstr "1 dag geleden"
+
+msgid "Case status updated"
+msgstr "Zaakstatus bijgewerkt"
+
+msgid "2 days ago"
+msgstr "2 dagen geleden"
+
+msgid "Legal Research"
+msgstr "Juridisch onderzoek"
+
+msgid "Access Belgian legal databases and conduct comprehensive legal research"
+msgstr "Toegang tot Belgische juridische databases en uitgebreid juridisch onderzoek"
+
+msgid "Search legal documents, cases, regulations..."
+msgstr "Zoek juridische documenten, zaken, regelgeving..."
+
+msgid "All Databases"
+msgstr "Alle databases"
+
+msgid "Belgian Official Gazette"
+msgstr "Belgisch Staatsblad"
+
+msgid "Court of Cassation"
+msgstr "Hof van Cassatie"
+
+msgid "Constitutional Court"
+msgstr "Grondwettelijk Hof"
+
+msgid "EU Legal Database"
+msgstr "EU-juridische database"
+
+msgid "Quick Searches:"
+msgstr "Snelle zoekopdrachten:"
+
+msgid "Commercial Contracts"
+msgstr "Handelscontracten"
+
+msgid "Privacy Regulations"
+msgstr "Privacyregelgeving"
+
+msgid "Tax Law"
+msgstr "Belastingrecht"
+
+msgid "Legal Databases"
+msgstr "Juridische databases"
+
+msgid "Official legal database"
+msgstr "Officiële juridische database"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Browse"
+msgstr "Bladeren"
+
+msgid "Recent Searches"
+msgstr "Recente zoekopdrachten"
+
+msgid "Repeat"
+msgstr "Herhalen"
+
+msgid "Saved Research"
+msgstr "Opgeslagen onderzoek"
+
+msgid "results"
+msgstr "resultaten"
+
+msgid "Search Results"
+msgstr "Zoekresultaten"
+
+msgid "Research Tools"
+msgstr "Onderzoeksgereedschappen"
+
+msgid "Case Law"
+msgstr "Rechtspraak"
+
+msgid "Search court decisions"
+msgstr "Zoek gerechtelijke uitspraken"
+
+msgid "Access"
+msgstr "Toegang"
+
+msgid "Legislation"
+msgstr "Wetgeving"
+
+msgid "Search laws and regulations"
+msgstr "Zoek wetten en regelgeving"
+
+msgid "Legal News"
+msgstr "Juridisch nieuws"
+
+msgid "Latest legal updates"
+msgstr "Nieuwste juridische updates"
+
+msgid "Legal Calculator"
+msgstr "Juridische calculator"
+
+msgid "Calculate legal deadlines"
+msgstr "Bereken juridische deadlines"
+
+msgid "Please enter a search query"
+msgstr "Voer een zoekopdracht in"
+
+msgid "Searching..."
+msgstr "Zoeken..."
+
+msgid "Found"
+msgstr "Gevonden"
+
+msgid "results for"
+msgstr "resultaten voor"
+
+msgid "relevance"
+msgstr "relevantie"
+
+msgid "Official Belgian Legal Codes"
+msgstr "Officiële Belgische Wetboeken"
+
+msgid "Source: Justel Database - Federal Public Service Justice"
+msgstr "Bron: Justel Database - Federale Overheidsdienst Justitie"
+
+msgid "Federal Legal Codes"
+msgstr "Federale Wetboeken"
+
+msgid "Regional & Community Codes"
+msgstr "Regionale & Gemeenschapswetboeken"
+
+msgid "Last updated"
+msgstr "Laatst bijgewerkt"
+
+msgid "Legal Practice Areas"
+msgstr "Juridische Rechtsgebieden"
+
+msgid "Multi-language legal practice areas for Belgian market"
+msgstr "Meertalige juridische rechtsgebieden voor de Belgische markt"
+
+msgid "Resources"
+msgstr "Bronnen"
+
+msgid "Follow"
+msgstr "Volgen"
+
+msgid "Civil Procedure"
+msgstr "Burgerlijke Rechtsvordering"
+
+msgid "Criminal Law"
+msgstr "Strafrecht"
+
+msgid "Offline Legal Knowledge Base"
+msgstr "Offline Juridische Kennisbank"
+
+msgid "Status: Available"
+msgstr "Status: Beschikbaar"
+
+msgid "Total Legal Codes"
+msgstr "Totaal Wetboeken"
+
+msgid "Categories"
+msgstr "Categorieën"
+
+msgid "Topics"
+msgstr "Onderwerpen"
+
+msgid "Articles"
+msgstr "Artikelen"
+
+msgid "Offline Search"
+msgstr "Offline Zoeken"
+
+msgid "Statistics"
+msgstr "Statistieken"
+
+msgid "Offline knowledge base not available. Only online sources accessible."
+msgstr "Offline kennisbank niet beschikbaar. Alleen online bronnen toegankelijk."
+
+msgid "Download Knowledge Base"
+msgstr "Kennisbank Downloaden"
+
+msgid "Offline Search Results"
+msgstr "Offline Zoekresultaten"
+
+msgid "results found"
+msgstr "resultaten gevonden"
+
+msgid "Score"
+msgstr "Score"
+
+msgid "View Online"
+msgstr "Online Bekijken"
+
+msgid "Download PDF"
+msgstr "PDF Downloaden"
+
+msgid "Offline Knowledge Base Statistics"
+msgstr "Offline Kennisbank Statistieken"
+
+msgid "Overview"
+msgstr "Overzicht"
+
+msgid "Total Codes"
+msgstr "Totaal Codes"
+
+msgid "Searching offline knowledge base..."
+msgstr "Offline kennisbank doorzoeken..."
+
+msgid "No results found in offline knowledge base."
+msgstr "Geen resultaten gevonden in offline kennisbank."
+
+msgid "Search failed. Please try again."
+msgstr "Zoeken mislukt. Probeer opnieuw."
+
+msgid "Failed to load statistics"
+msgstr "Statistieken laden mislukt"
+
+msgid "This will download the complete Belgian legal knowledge base. This may take several minutes. Continue?"
+msgstr "Dit zal de volledige Belgische juridische kennisbank downloaden. Dit kan enkele minuten duren. Doorgaan?"
+
+msgid "Download process started. Check the console for progress."
+msgstr "Download proces gestart. Controleer de console voor voortgang." 

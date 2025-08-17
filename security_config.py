@@ -63,7 +63,7 @@ class SecurityConfig:
         # Vector store settings
         self.vector_store_path = os.getenv('VECTOR_STORE_PATH', './chroma_db')
         self.embedding_model = os.getenv('EMBEDDING_MODEL', 'all-MiniLM-L6-v2')
-        self.ollama_model = os.getenv('OLLAMA_MODEL', 'mixtral')
+        self.ollama_model = os.getenv('OLLAMA_MODEL', 'mistral:7b')
         
         # File paths
         self.security_dir = os.getenv('SECURITY_DIR', './security')

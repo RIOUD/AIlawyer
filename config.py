@@ -45,7 +45,7 @@ except ImportError:
     SOURCE_DOCUMENTS_PATH = os.getenv('SOURCE_DOCUMENTS_PATH', "./source_documents")
     VECTOR_STORE_PATH = os.getenv('VECTOR_STORE_PATH', "./chroma_db")
     EMBEDDING_MODEL_NAME = os.getenv('EMBEDDING_MODEL', "all-MiniLM-L6-v2")
-    OLLAMA_MODEL_NAME = os.getenv('OLLAMA_MODEL', "mixtral")
+    OLLAMA_MODEL_NAME = os.getenv('OLLAMA_MODEL', "mistral:7b")
     OLLAMA_BASE_URL = os.getenv('OLLAMA_BASE_URL', "http://localhost:11434")
     MAX_RETRIEVAL_DOCS = int(os.getenv('MAX_RETRIEVAL_DOCS', "4"))
     

@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Analytics') }} - {{ _('LawyerAgent') }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">
+                    <i class="fas fa-chart-bar text-primary me-3"></i>
+                    {{ _('Analytics & Reporting') }}
+                </h1>
+                <p class="card-text">
+                    {{ _('Comprehensive insights into your legal practice performance') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Metrics -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-euro-sign text-success"></i>
+                </div>
+                <h4 class="text-success">€{{ data.revenue_trend[-1].revenue }}</h4>
+                <p class="card-text">{{ _('Monthly Revenue') }}</p>
+                <small class="text-success">↑ +12% {{ _('from last month') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-users text-primary"></i>
+                </div>
+                <h4 class="text-primary">{{ data.client_growth[-1].clients }}</h4>
+                <p class="card-text">{{ _('Active Clients') }}</p>
+                <small class="text-primary">↑ +1 {{ _('this week') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-briefcase text-warning"></i>
+                </div>
+                <h4 class="text-warning">{{ data.case_status[0].count }}</h4>
+                <p class="card-text">{{ _('Active Cases') }}</p>
+                <small class="text-warning">↑ +2 {{ _('this month') }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="feature-icon">
+                    <i class="fas fa-clock text-info"></i>
+                </div>
+                <h4 class="text-info">0</h4>
+                <p class="card-text">{{ _('Upcoming Events') }}</p>
+                <small class="text-info">{{ _('Next: Court hearing') }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Revenue Trend Chart -->
+    <div class="col-md-8 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>{{ _('Revenue Trend') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Practice Areas Chart -->
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>{{ _('Practice Areas') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="practiceAreasChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Client Growth and Case Status -->
+<div class="row mb-4">
+    <!-- Client Growth Chart -->
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-area me-2"></i>{{ _('Client Growth') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="clientGrowthChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Case Status Chart -->
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-doughnut me-2"></i>{{ _('Case Status') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="caseStatusChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Practice Areas Details -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-briefcase me-2"></i>{{ _('Practice Areas Performance') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ _('Practice Area') }}</th>
+                                <th>{{ _('Active Clients') }}</th>
+                                <th>{{ _('Revenue') }}</th>
+                                <th>{{ _('Growth') }}</th>
+                                <th>{{ _('Performance') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for area in data.practice_areas %}
+                            <tr>
+                                <td>
+                                    <strong>{{ area.area }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ area.clients }}</span>
+                                </td>
+                                <td>
+                                    <strong>€{{ area.revenue }}</strong>
+                                </td>
+                                <td>
+                                    <span class="text-success">↑ +15%</span>
+                                </td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar bg-success" style="width: {{ (area.revenue / 3000) * 100 }}%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>{{ _('Recent Activity') }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-success"></div>
+                        <div class="timeline-content">
+                            <h6>{{ _('New client added') }}</h6>
+                            <p class="text-muted">{{ _('2 hours ago') }}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6>{{ _('Invoice paid') }}</h6>
+                            <p class="text-muted">{{ _('1 day ago') }}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-warning"></div>
+                        <div class="timeline-content">
+                            <h6>{{ _('Case status updated') }}</h6>
+                            <p class="text-muted">{{ _('2 days ago') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.timeline-content {
+    padding-left: 20px;
+    border-left: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Revenue Trend Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: [{% for item in data.revenue_trend %}'{{ item.month }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: '{{ _("Revenue") }}',
+                data: [{% for item in data.revenue_trend %}{{ item.revenue }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '€' + value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Practice Areas Chart
+    const practiceCtx = document.getElementById('practiceAreasChart').getContext('2d');
+    new Chart(practiceCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for area in data.practice_areas %}'{{ area.area }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                data: [{% for area in data.practice_areas %}{{ area.revenue }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 205, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+    // Client Growth Chart
+    const clientCtx = document.getElementById('clientGrowthChart').getContext('2d');
+    new Chart(clientCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for item in data.client_growth %}'{{ item.month }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: '{{ _("Clients") }}',
+                data: [{% for item in data.client_growth %}{{ item.clients }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: 'rgba(54, 162, 235, 0.8)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Case Status Chart
+    const caseCtx = document.getElementById('caseStatusChart').getContext('2d');
+    new Chart(caseCtx, {
+        type: 'pie',
+        data: {
+            labels: [{% for status in data.case_status %}'{{ status.status }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                data: [{% for status in data.case_status %}{{ status.count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 205, 86, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

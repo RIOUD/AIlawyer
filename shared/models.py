@@ -140,8 +140,8 @@ class QueryRequest:
     """Query processing request model."""
     question: str
     user_id: str
-    filters: Dict[str, Any] = field(default_factory=dict)
     session_id: str
+    filters: Dict[str, Any] = field(default_factory=dict)
     priority: int = 1
 
 

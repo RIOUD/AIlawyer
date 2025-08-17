@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Legal Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #7c3aed;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-color);
+            color: var(--gray-800);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            text-transform: capitalize;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 2rem;
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .nav-link:hover {
+            background: var(--gray-100);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .logout-section {
+            padding: 2rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: auto;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Settings Grid */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .form-checkbox label {
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        /* Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray-300);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .switch-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .switch-text {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-balance-scale"></i>
+                    LegalPlatform
+                </div>
+                <div class="user-info">
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <div class="user-role" id="user-role">Loading...</div>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/research" class="nav-link">
+                        <i class="fas fa-search"></i>
+                        AI Research
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/documents" class="nav-link">
+                        <i class="fas fa-file-alt"></i>
+                        Documents
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/clients" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Clients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/calendar" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/billing" class="nav-link">
+                        <i class="fas fa-clock"></i>
+                        Time Tracking
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/analytics" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        Analytics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/settings" class="nav-link active">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+            </nav>
+
+            <div class="logout-section">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1 class="page-title">Settings</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="resetSettings()">
+                        <i class="fas fa-undo"></i>
+                        Reset to Defaults
+                    </button>
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Profile Settings -->
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="card-title">Profile Settings</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="fullName" value="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="email" value="lawyer@legalplatform.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phone" value="+32 2 123 45 67">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Law Firm</label>
+                        <input type="text" class="form-input" id="lawFirm" value="LegalPlatform Law">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Practice Areas</label>
+                        <textarea class="form-textarea" id="practiceAreas">Corporate Law, Employment Law, GDPR Compliance</textarea>
+                    </div>
+                </div>
+
+                <!-- AI Research Settings -->
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="card-title">AI Research Settings</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Language</label>
+                        <select class="form-select" id="preferredLanguage">
+                            <option value="dutch">Dutch</option>
+                            <option value="french">French</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Jurisdiction Focus</label>
+                        <select class="form-select" id="jurisdiction">
+                            <option value="belgian">Belgian Law</option>
+                            <option value="eu">EU Law</option>
+                            <option value="international">International Law</option>
+                        </select>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Enable AI Research</span>
+                        <label class="switch">
+                            <input type="checkbox" id="aiResearchEnabled" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Auto-save Research History</span>
+                        <label class="switch">
+                            <input type="checkbox" id="autoSaveHistory" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Show Source Citations</span>
+                        <label class="switch">
+                            <input type="checkbox" id="showCitations" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3 class="card-title">Notification Settings</h3>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Email Notifications</span>
+                        <label class="switch">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Calendar Reminders</span>
+                        <label class="switch">
+                            <input type="checkbox" id="calendarReminders" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Client Updates</span>
+                        <label class="switch">
+                            <input type="checkbox" id="clientUpdates" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Billing Alerts</span>
+                        <label class="switch">
+                            <input type="checkbox" id="billingAlerts">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Security Alerts</span>
+                        <label class="switch">
+                            <input type="checkbox" id="securityAlerts" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="card-title">Security Settings</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-input" id="currentPassword" placeholder="Enter current password">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-input" id="newPassword" placeholder="Enter new password">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password">
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Two-Factor Authentication</span>
+                        <label class="switch">
+                            <input type="checkbox" id="twoFactorAuth">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="switch-label">
+                        <span class="switch-text">Session Timeout (30 min)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="sessionTimeout" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-danger" onclick="changePassword()">
+                        <i class="fas fa-key"></i>
+                        Change Password
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Check authentication
+        function checkAuth() {
+            const token = localStorage.getItem('auth_token');
+            const email = localStorage.getItem('user_email');
+            
+            if (!token || !email) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            // Set user info
+            const userRole = email.includes('admin') ? 'Administrator' : 'Lawyer';
+            document.getElementById('user-name').textContent = email;
+            document.getElementById('user-role').textContent = userRole;
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_email');
+            window.location.href = '/login.html';
+        }
+
+        // Save settings
+        function saveSettings() {
+            // Collect all settings
+            const settings = {
+                profile: {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    lawFirm: document.getElementById('lawFirm').value,
+                    practiceAreas: document.getElementById('practiceAreas').value
+                },
+                ai: {
+                    preferredLanguage: document.getElementById('preferredLanguage').value,
+                    jurisdiction: document.getElementById('jurisdiction').value,
+                    aiResearchEnabled: document.getElementById('aiResearchEnabled').checked,
+                    autoSaveHistory: document.getElementById('autoSaveHistory').checked,
+                    showCitations: document.getElementById('showCitations').checked
+                },
+                notifications: {
+                    emailNotifications: document.getElementById('emailNotifications').checked,
+                    calendarReminders: document.getElementById('calendarReminders').checked,
+                    clientUpdates: document.getElementById('clientUpdates').checked,
+                    billingAlerts: document.getElementById('billingAlerts').checked,
+                    securityAlerts: document.getElementById('securityAlerts').checked
+                },
+                security: {
+                    twoFactorAuth: document.getElementById('twoFactorAuth').checked,
+                    sessionTimeout: document.getElementById('sessionTimeout').checked
+                }
+            };
+
+            // Save to localStorage
+            localStorage.setItem('platform_settings', JSON.stringify(settings));
+            
+            alert('Settings saved successfully!');
+        }
+
+        // Reset settings
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to defaults?')) {
+                // Reset form values
+                document.getElementById('fullName').value = 'John Doe';
+                document.getElementById('email').value = 'lawyer@legalplatform.com';
+                document.getElementById('phone').value = '+32 2 123 45 67';
+                document.getElementById('lawFirm').value = 'LegalPlatform Law';
+                document.getElementById('practiceAreas').value = 'Corporate Law, Employment Law, GDPR Compliance';
+                
+                // Reset checkboxes
+                document.getElementById('aiResearchEnabled').checked = true;
+                document.getElementById('autoSaveHistory').checked = true;
+                document.getElementById('showCitations').checked = true;
+                document.getElementById('emailNotifications').checked = true;
+                document.getElementById('calendarReminders').checked = true;
+                document.getElementById('clientUpdates').checked = true;
+                document.getElementById('billingAlerts').checked = false;
+                document.getElementById('securityAlerts').checked = true;
+                document.getElementById('twoFactorAuth').checked = false;
+                document.getElementById('sessionTimeout').checked = true;
+                
+                alert('Settings reset to defaults!');
+            }
+        }
+
+        // Change password
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all password fields.');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match.');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('New password must be at least 8 characters long.');
+                return;
+            }
+
+            // In a real app, this would make an API call
+            alert('Password changed successfully!');
+            
+            // Clear password fields
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        // Load saved settings
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('platform_settings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                
+                // Load profile settings
+                if (settings.profile) {
+                    document.getElementById('fullName').value = settings.profile.fullName || 'John Doe';
+                    document.getElementById('email').value = settings.profile.email || 'lawyer@legalplatform.com';
+                    document.getElementById('phone').value = settings.profile.phone || '+32 2 123 45 67';
+                    document.getElementById('lawFirm').value = settings.profile.lawFirm || 'LegalPlatform Law';
+                    document.getElementById('practiceAreas').value = settings.profile.practiceAreas || 'Corporate Law, Employment Law, GDPR Compliance';
+                }
+                
+                // Load AI settings
+                if (settings.ai) {
+                    document.getElementById('preferredLanguage').value = settings.ai.preferredLanguage || 'dutch';
+                    document.getElementById('jurisdiction').value = settings.ai.jurisdiction || 'belgian';
+                    document.getElementById('aiResearchEnabled').checked = settings.ai.aiResearchEnabled !== false;
+                    document.getElementById('autoSaveHistory').checked = settings.ai.autoSaveHistory !== false;
+                    document.getElementById('showCitations').checked = settings.ai.showCitations !== false;
+                }
+                
+                // Load notification settings
+                if (settings.notifications) {
+                    document.getElementById('emailNotifications').checked = settings.notifications.emailNotifications !== false;
+                    document.getElementById('calendarReminders').checked = settings.notifications.calendarReminders !== false;
+                    document.getElementById('clientUpdates').checked = settings.notifications.clientUpdates !== false;
+                    document.getElementById('billingAlerts').checked = settings.notifications.billingAlerts || false;
+                    document.getElementById('securityAlerts').checked = settings.notifications.securityAlerts !== false;
+                }
+                
+                // Load security settings
+                if (settings.security) {
+                    document.getElementById('twoFactorAuth').checked = settings.security.twoFactorAuth || false;
+                    document.getElementById('sessionTimeout').checked = settings.security.sessionTimeout !== false;
+                }
+            }
+        }
+
+        // Navigation - Let links work naturally
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+            });
+        });
+
+        // Check auth and load settings on page load
+        checkAuth();
+        loadSettings();
+    </script>
+</body>
+</html> 
